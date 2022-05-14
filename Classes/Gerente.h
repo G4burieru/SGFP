@@ -9,6 +9,9 @@ class Gerente
 public:
     Gerente();
     ~Gerente();
+    std::string getAreasupervisao();
+
+    void setAreasupervisao(std::string areaSupervisao);
 
 private:
     std::string areaSupervisao;

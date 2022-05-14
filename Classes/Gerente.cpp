@@ -9,3 +9,11 @@ Gerente::~Gerente()
 {
 
 }
+
+std::string Gerente::getAreasupervisao(){
+    return this->areaSupervisao;
+}
+
+void Gerente::setAreasupervisao(std::string areaSupervisao){
+   this->areaSupervisao = areaSupervisao;
+}

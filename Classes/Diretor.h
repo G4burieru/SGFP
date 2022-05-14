@@ -9,6 +9,12 @@ class Diretor : public Funcionario
 public:
     Diretor();
     ~Diretor();
+    
+    std::string getAreasupervisao();
+    std::string getAreaformacao();
+
+    void setAreasupervisao(std::string areaSupervisao);
+    void setAreaformacao(std::string areaFormacao);
 
 private:
     std::string areaSupervisao;
