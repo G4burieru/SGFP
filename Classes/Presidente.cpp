@@ -25,3 +25,7 @@ void Presidente::setAreaformacao(std::string areaFormacao){
 void Presidente::setFormacaomaxima(std::string formacaoMaxima){
    this->formacaoMaxima = formacaoMaxima;
 }
+
+void Presidente::aumentoSalarial(){
+    this->salario+=salario*0.3;
+}

@@ -4,11 +4,14 @@
 #include "Funcionario.h"
 #include <iostream>
 
-class Presidente
+class Presidente : public Funcionario
 {
 public:
     Presidente();
     ~Presidente();
+
+    void aumentoSalarial();
+
     std::string getAreaformacao();
     std::string getFormacaomaxima();
 
