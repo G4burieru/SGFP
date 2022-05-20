@@ -6,4 +6,4 @@ Add calculo imposto de renda
 criar documento sobre o trabalho
 funções extras a decidir
 Pensar no(s) extra(s) para adicionar
-Pensar no(s) extra(s) para adicionar 
+
