@@ -4,7 +4,7 @@
 #include "Funcionario.h"
 #include <iostream>
 
-class Operador
+class Operador : public Funcionario
 {
 public:
     Operador();
