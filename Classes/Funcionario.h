@@ -4,10 +4,10 @@
 #include "Data.h"
 #include <iostream>
 
-class Funcionario
+class Funcionario : public Data
 {
 public:
-    Funcionario();
+    Funcionario(int codigo, std::string nome, std::string endereco, int telefone, Data data, int designacao, float salario);
     ~Funcionario();
     virtual void aumentoSalarial();
     virtual void calcularSalarioMensal();
@@ -17,7 +17,7 @@ public:
     std::string getEndereco();
     int getTelefone();
     Data getData();
-    std::string getDesignacao();
+    int getDesignacao();
     float getSalario();
 
     void setCodigo(int codigo);
@@ -25,7 +25,7 @@ public:
     void setEndereco(std::string endereco);
     void setTelefone(int telefone);
     void setData(Data data);
-    void setDesignacao(std::string designacao);
+    void setDesignacao(int designacao);
     void setSalario(float salario);
 
 protected:
@@ -34,7 +34,7 @@ protected:
     std::string endereco;
     int telefone;
     Data data;
-    std::string designacao;
+    int designacao;
     float salario;
 
 

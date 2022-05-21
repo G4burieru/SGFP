@@ -7,6 +7,7 @@ class Data
 {
 public:
     Data();
+    Data(int dia, int mes, int ano);
     ~Data();
     int getDia();
     int getMes();

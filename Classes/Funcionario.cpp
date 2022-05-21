@@ -1,13 +1,24 @@
 #include "Funcionario.h"
 
-Funcionario::Funcionario()
+Funcionario::Funcionario(int codigo, std::string nome, std::string endereco, int telefone, Data data, int designacao, float salario)
 {
+    this-> codigo = codigo;
+    this-> nome = nome;
+    this-> endereco = endereco;
+    this-> telefone = telefone;
+    this-> data = data;
+    this-> designacao = designacao;
+    this-> salario = salario;
 
 }
 
 Funcionario::~Funcionario()
 {
 
+}
+
+void Funcionario::calcularSalarioMensal() {
+    
 }
 
 int Funcionario::getCodigo(){
@@ -30,7 +41,7 @@ Data Funcionario::getData(){
     return this->data;
 }
 
-std::string Funcionario::getDesignacao(){
+int Funcionario::getDesignacao(){
     return this->designacao;
 }
 
@@ -58,7 +69,7 @@ void Funcionario::setData(Data data){
    this->data = data;
 }
 
-void Funcionario::setDesignacao(std::string designacao){
+void Funcionario::setDesignacao(int designacao){
    this->designacao = designacao;
 }
 

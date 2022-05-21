@@ -1,6 +1,8 @@
 #ifndef EMPRESA_H
 #define EMPRESA_H
 
+using namespace std;
+
 #include "Funcionario.h"
 #include <iostream>
 #include <list>
