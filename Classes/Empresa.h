@@ -14,10 +14,10 @@ public:
     ~Empresa();
     void editarFuncionario();
     void excluirFuncionario();
-    void exibirRegistro();
+    void exibirRegistro(int indice);
     void exibirListaFuncionarios();
     void exibirListaFuncionariosTipo();
-    void buscarFuncionario();
+    int buscarFuncionario(int codigo);
     void calcularFolhaSalarial();
     void folhaSalarialFuncionario();
     void folhaSalarialEmpresa();
