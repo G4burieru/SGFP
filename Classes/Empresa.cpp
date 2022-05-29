@@ -24,20 +24,14 @@ void Empresa::editarFuncionario()
     std::cout << "Insira o codigo do funcionario a se alterar: ";
     std::cin >> codigo;
     
-    for(int i= 0; i < funcionarios.size(); i++)
-    {
-        if(funcionarios[i]->getCodigo() == codigo)
-        {
-            indice= i;
-            break;
-        }
-    }
+    indice = buscarFuncionario(codigo);
 
     std::cout << "Escolha o que alterar: \n[1] Codigo\n[2] Data de Ingresso"
     "\n[3] Nome\n[4] Endereco\n[5] Telefone\n[6] Designacao\n[7] Salario\n";
     std::cin >> opcao;
 
-    switch(opcao){
+    switch(opcao)
+    {
         case 1: //alterar codigo 
             std::cout << "Insira o novo codigo: ";
             std::cin >> novoInt;
@@ -123,15 +117,23 @@ void Empresa::excluirFuncionario()
         if(confirmacao==true)
         {
             funcionarios.erase(funcionarios.begin()+indice);
-            cout << "Funcionario removido com sucesso!\n";
+            std::cout << "Funcionario removido com sucesso!\n";
         }
     }
 }
 
-void Empresa::exibirRegistro(int indice)
-{
-
+void Empresa::exibirRegistro(int indice){
+    string tipo[4]{"Operador", "Gerente", "Diretor", "Presidente"};
+    std::cout << "Nome: " << funcionarios[indice]->getNome() << endl;
+    std::cout << "Codigo: " << funcionarios[indice]->getCodigo() << endl;
+    std::cout << "Designação: " << tipo[funcionarios[indice]->getDesignacao()] << endl;
+    std::cout << "Data de Entrada: " << funcionarios[indice]->getDia() << "/" << 
+    funcionarios[indice]->getMes() << "/" << funcionarios[indice]->getAno() << endl;
+    std::cout << "Telefone: " << funcionarios[indice]->getTelefone() << endl;
+    std::cout << "Salario: " << funcionarios[indice]->getSalario() << endl;
+    std::cout << "Endereco: " << funcionarios[indice]->getEndereco() << endl;
 }
+
 void Empresa::exibirListaFuncionarios()
 {
     for(int i = 0; i < funcionarios.size(); i++){
@@ -142,6 +144,29 @@ void Empresa::exibirListaFuncionarios()
 
 }
 
+int Empresa::buscarFuncionario(int codigo)
+{
+    int indice;
+    bool encontrado;
+    for(int i= 0; i < funcionarios.size(); i++)
+    {
+        
+        if(funcionarios[i]->getCodigo() == codigo)
+        {
+            indice= i;
+            encontrado = true;
+            return indice;
+        }
+    }
+
+    if(encontrado==false)
+    {    
+        std::cout << "Funcionario de codigo: "<< codigo << " nao encontrado.";
+    }
+}
+void Empresa::calcularFolhaSalarial()
+{
+}
 void Empresa::exibirListaFuncionariosTipo()
 {
     int designacao;
@@ -159,12 +184,12 @@ void Empresa::exibirListaFuncionariosTipo()
 
     std::cout << "----------------------------------------------\n";
 }
-
-void Empresa::buscarFuncionario()
+void Empresa::folhaSalarialFuncionario()
 {
 
 }
-void Empresa::calcularFolhaSalarial(){
+void Empresa::folhaSalarialEmpresa()
+{
 
 }
 void Empresa::folhaSalarialFuncionario() //imprime a folha salarial de um único funcionário.
