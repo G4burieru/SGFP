@@ -179,7 +179,7 @@ void Empresa::adicionarFuncionario(){
     cin >> salario;
 
     Data data(dia, mes, ano);
-    Funcionario funcionario(codigo, nome, endereco, telefone, data, tipo, salario);
+    Funcionario *funcionario = new Funcionario(codigo, nome, endereco, telefone, data, tipo, salario);
 
     funcionarios.push_back(funcionario);
 }
