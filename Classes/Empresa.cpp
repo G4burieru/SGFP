@@ -14,7 +14,8 @@ Empresa::~Empresa()
 
 }
 
-void Empresa::editarFuncionario(){
+void Empresa::editarFuncionario()
+{
     int indice, codigo, opcao, novoInt, novoDia, novoMes, novoAno;
     string novoString;
     float novoFloat;
@@ -84,7 +85,8 @@ void Empresa::editarFuncionario(){
     }
 }
 
-void Empresa::excluirFuncionario(){
+void Empresa::excluirFuncionario()
+{
     int codigo, indice, designacao;
     bool encontrado = false, confirmacao = false;
 
@@ -126,25 +128,51 @@ void Empresa::excluirFuncionario(){
     }
 }
 
-void Empresa::exibirRegistro(){
+void Empresa::exibirRegistro(int indice)
+{
 
 }
-void Empresa::exibirListaFuncionarios(){
+void Empresa::exibirListaFuncionarios()
+{
+    for(int i = 0; i < funcionarios.size(); i++){
+        std::cout << "----------------------------------------------\n";
+        exibirRegistro(i);
+    }
+    std::cout << "----------------------------------------------\n";
 
 }
-void Empresa::exibirListaFuncionariosTipo(){
 
+void Empresa::exibirListaFuncionariosTipo()
+{
+    int designacao;
+    std::cout << "Insira a designacao dos funcionarios a serem exibidos \n[1] Operador\n[2] Gerente\n[3] Diretor\n[4] Presidente\n";
+    std::cin >> designacao;
+
+    for(int i = 0; i < funcionarios.size(); i++)
+    {
+        if(funcionarios[i]->getDesignacao() == designacao)
+        {
+            std::cout << "----------------------------------------------\n"; 
+            exibirRegistro(i);
+        }
+    }
+
+    std::cout << "----------------------------------------------\n";
 }
-void Empresa::buscarFuncionario(){
+
+void Empresa::buscarFuncionario()
+{
 
 }
 void Empresa::calcularFolhaSalarial(){
 
 }
-void Empresa::folhaSalarialFuncionario(){
+void Empresa::folhaSalarialFuncionario() //imprime a folha salarial de um único funcionário.
+{
 
 }
-void Empresa::folhaSalarialEmpresa(){
+void Empresa::folhaSalarialEmpresa() //imprime a folha salarial da empresa.
+{
 
 }
 void Empresa::adicionarFuncionario(){
@@ -182,4 +210,11 @@ void Empresa::adicionarFuncionario(){
     Funcionario *funcionario = new Funcionario(codigo, nome, endereco, telefone, data, tipo, salario);
 
     funcionarios.push_back(funcionario);
+}
+
+void Empresa::aumentaTodosSalarios(){
+    for(int i = 0; i < funcionarios.size(); i++){
+        funcionarios[i]->aumentoSalarial();
+    }
+    std::cout << "Salarios aumentados com sucesso!";
 }

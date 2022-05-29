@@ -14,7 +14,7 @@ public:
     ~Empresa();
     void editarFuncionario();
     void excluirFuncionario();
-    void exibirRegistro();
+    void exibirRegistro(int indice);
     void exibirListaFuncionarios();
     void exibirListaFuncionariosTipo();
     void buscarFuncionario();
@@ -22,6 +22,8 @@ public:
     void folhaSalarialFuncionario();
     void folhaSalarialEmpresa();
     void adicionarFuncionario();
+    void aumentaTodosSalarios();
+
 
 private:
     std::vector<Funcionario*> funcionarios;
