@@ -1,6 +1,6 @@
 #include "Operador.h"
 
-Operador::Operador()
+Operador::Operador():Funcionario(codigo, nome, endereco, telefone, data, designacao, salario)
 {
 
 }
@@ -10,6 +10,7 @@ Operador::~Operador()
 
 }
 
-void Operador::aumentoSalarial(){
+void Operador::aumentoSalarial()
+{
     this->salario+=salario*0.05;
 }

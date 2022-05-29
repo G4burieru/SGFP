@@ -14,7 +14,8 @@ Empresa::~Empresa()
 
 }
 
-void Empresa::editarFuncionario(){
+void Empresa::editarFuncionario()
+{
     int indice, codigo, opcao, novoInt, novoDia, novoMes, novoAno;
     string novoString;
     float novoFloat;
@@ -36,7 +37,8 @@ void Empresa::editarFuncionario(){
     "\n[3] Nome\n[4] Endereco\n[5] Telefone\n[6] Designacao\n[7] Salario\n";
     std::cin >> opcao;
 
-    switch(opcao){
+    switch(opcao)
+    {
         case 1: //alterar codigo 
             std::cout << "Insira o novo codigo: ";
             std::cin >> novoInt;
@@ -84,7 +86,8 @@ void Empresa::editarFuncionario(){
     }
 }
 
-void Empresa::excluirFuncionario(){
+void Empresa::excluirFuncionario()
+{
     int codigo, indice, designacao;
     bool encontrado = false, confirmacao = false;
 
@@ -126,28 +129,36 @@ void Empresa::excluirFuncionario(){
     }
 }
 
-void Empresa::exibirRegistro(){
+void Empresa::exibirRegistro()
+{
 
 }
-void Empresa::exibirListaFuncionarios(){
+void Empresa::exibirListaFuncionarios()
+{
 
 }
-void Empresa::exibirListaFuncionariosTipo(){
+void Empresa::exibirListaFuncionariosTipo()
+{
 
 }
-void Empresa::buscarFuncionario(){
+void Empresa::buscarFuncionario()
+{
 
 }
-void Empresa::calcularFolhaSalarial(){
+void Empresa::calcularFolhaSalarial()
+{
 
 }
-void Empresa::folhaSalarialFuncionario(){
+void Empresa::folhaSalarialFuncionario()
+{
 
 }
-void Empresa::folhaSalarialEmpresa(){
+void Empresa::folhaSalarialEmpresa()
+{
 
 }
-void Empresa::adicionarFuncionario(){
+void Empresa::adicionarFuncionario()
+{
     int codigo;
     std::string nome;
     std::string endereco;
