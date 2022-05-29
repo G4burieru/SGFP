@@ -1,5 +1,10 @@
 {
     "files.associations": {
+<<<<<<< HEAD
+=======
+        "system_error": "cpp",
+        "iostream": "cpp",
+>>>>>>> gabs
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -29,14 +34,20 @@
         "random": "cpp",
         "string": "cpp",
         "string_view": "cpp",
+<<<<<<< HEAD
         "system_error": "cpp",
+=======
+>>>>>>> gabs
         "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp",
         "fstream": "cpp",
         "initializer_list": "cpp",
         "iosfwd": "cpp",
+<<<<<<< HEAD
         "iostream": "cpp",
+=======
+>>>>>>> gabs
         "istream": "cpp",
         "limits": "cpp",
         "new": "cpp",
