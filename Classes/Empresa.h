@@ -5,7 +5,7 @@ using namespace std;
 
 #include "Funcionario.h"
 #include <iostream>
-#include <list>
+#include <vector>
 
 class Empresa
 {
@@ -24,7 +24,7 @@ public:
     void adicionarFuncionario();
 
 private:
-    std::list<Funcionario> funcionarios;
+    std::vector<Funcionario*> funcionarios;
 
 };
 
