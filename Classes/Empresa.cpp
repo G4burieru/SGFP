@@ -144,15 +144,6 @@ void Empresa::exibirListaFuncionarios()
 
 }
 
-void Empresa::exibirListaFuncionarios()
-{
-
-}
-void Empresa::exibirListaFuncionariosTipo()
-{
-
-}
-
 int Empresa::buscarFuncionario(int codigo)
 {
     int indice;
