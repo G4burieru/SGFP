@@ -17,62 +17,77 @@ Funcionario::~Funcionario()
 
 }
 
-void Funcionario::calcularSalarioMensal() {
+void Funcionario::calcularSalarioMensal() 
+{
     
 }
 
-int Funcionario::getCodigo(){
+int Funcionario::getCodigo()
+{
     return this->codigo;
 }
 
-std::string Funcionario::getNome(){
+std::string Funcionario::getNome()
+{
     return this->nome;
 }
 
-std::string Funcionario::getEndereco(){
+std::string Funcionario::getEndereco()
+{
     return this->endereco;
 }
 
-int Funcionario::getTelefone(){
+int Funcionario::getTelefone()
+{
     return this->telefone;
 }
 
-Data Funcionario::getData(){
+Data Funcionario::getData()
+{
     return this->data;
 }
 
-int Funcionario::getDesignacao(){
+int Funcionario::getDesignacao()
+{
     return this->designacao;
 }
 
-float Funcionario::getSalario(){
+float Funcionario::getSalario()
+{
     return this->salario;
 }
 
-void Funcionario::setCodigo(int codigo){
+void Funcionario::setCodigo(int codigo)
+{
    this->codigo = codigo;
 }
 
-void Funcionario::setNome(std::string nome){
+void Funcionario::setNome(std::string nome)
+{
    this->nome = nome;
 }
 
-void Funcionario::setEndereco(std::string endereco){
+void Funcionario::setEndereco(std::string endereco)
+{
    this->endereco = endereco;
 }
 
-void Funcionario::setTelefone(int telefone){
+void Funcionario::setTelefone(int telefone)
+{
    this->telefone = telefone;
 }
 
-void Funcionario::setData(Data data){
+void Funcionario::setData(Data data)
+{
    this->data = data;
 }
 
-void Funcionario::setDesignacao(int designacao){
+void Funcionario::setDesignacao(int designacao)
+{
    this->designacao = designacao;
 }
 
-void Funcionario::setSalario(float salario){
+void Funcionario::setSalario(float salario)
+{
    this->salario = salario;
 }

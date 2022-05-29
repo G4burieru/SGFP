@@ -1,6 +1,7 @@
 #include "Data.h"
 
-Data::Data(){
+Data::Data()
+{
     
 }
 
@@ -16,26 +17,32 @@ Data::~Data()
 
 }
 
-int Data::getDia(){
+int Data::getDia()
+{
     return this->dia;
 }
 
-int Data::getMes(){
+int Data::getMes()
+{
     return this->mes;
 }
 
-int Data::getAno(){
+int Data::getAno()
+{
     return this->ano;
 }
 
-void Data::setDia(int dia){
+void Data::setDia(int dia)
+{
    this->dia = dia;
 }
 
-void Data::setMes(int mes){
+void Data::setMes(int mes)
+{
    this->mes = mes;
 }
 
-void Data::setAno(int ano){
+void Data::setAno(int ano)
+{
    this->ano = ano;
 }
