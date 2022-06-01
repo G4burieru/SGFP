@@ -11,7 +11,6 @@ public:
     Funcionario(int codigo, std::string nome, std::string endereco, int telefone, Data data, int designacao, float salario);
     ~Funcionario();
     virtual void aumentoSalarial();
-    virtual void calcularSalarioMensal();
 
     int getCodigo();
     std::string getNome();
@@ -39,7 +38,7 @@ protected:
     Data data;
     int designacao;
     float salarioDiario;
-    FolhaSalarial FolhaDoMes[12]; 
+    FolhaSalarial folhaDoMes[12]; 
 
 
 };

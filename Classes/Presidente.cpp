@@ -1,6 +1,6 @@
 #include "Presidente.h"
 
-Presidente::Presidente():Funcionario(codigo, nome, endereco, telefone, data, designacao, salario)
+Presidente::Presidente():Funcionario(codigo, nome, endereco, telefone, data, designacao, salarioDiario)
 {
 
 }
@@ -32,5 +32,5 @@ void Presidente::setFormacaomaxima(std::string formacaoMaxima)
 
 void Presidente::aumentoSalarial()
 {
-    this->salario+=salario*0.3;
+    this->salarioDiario+=salarioDiario*0.3;
 }

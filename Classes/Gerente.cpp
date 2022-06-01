@@ -1,6 +1,6 @@
 #include "Gerente.h"
 
-Gerente::Gerente():Funcionario(codigo, nome, endereco, telefone, data, designacao, salario)
+Gerente::Gerente():Funcionario(codigo, nome, endereco, telefone, data, designacao, salarioDiario)
 {
 
 }
@@ -22,5 +22,5 @@ void Gerente::setAreasupervisao(std::string areaSupervisao)
 
 void Gerente::aumentoSalarial()
 {
-    this->salario+=salario*0.1;
+    this->salarioDiario+=salarioDiario*0.1;
 }

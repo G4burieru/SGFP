@@ -1,6 +1,6 @@
 #include "Diretor.h"
 
-Diretor::Diretor():Funcionario(codigo, nome, endereco, telefone, data, designacao, salario)
+Diretor::Diretor():Funcionario(codigo, nome, endereco, telefone, data, designacao, salarioDiario)
 {
 
 }
@@ -32,5 +32,5 @@ void Diretor::setAreaformacao(std::string areaFormacao)
 
 void Diretor::aumentoSalarial()
 {
-    this->salario+=salario*0.2;
+    this->salarioDiario+=salarioDiario*0.2;
 }

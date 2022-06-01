@@ -17,9 +17,8 @@ Funcionario::~Funcionario()
 
 }
 
-void Funcionario::calcularSalarioMensal() 
-{
-    
+void Funcionario::aumentoSalarial(){
+
 }
 
 int Funcionario::getCodigo()
@@ -93,5 +92,5 @@ void Funcionario::setSalarioDiario(float salario)
 }
 
 FolhaSalarial Funcionario::getFolhaDoMes(int mes){
-
+    return folhaDoMes[mes];
 }
