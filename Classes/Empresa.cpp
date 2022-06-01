@@ -33,6 +33,7 @@ void Empresa::editarFuncionario()
     std::cout << "Escolha o que alterar: \n[1] Codigo\n[2] Data de Ingresso"
     "\n[3] Nome\n[4] Endereco\n[5] Telefone\n[6] Designacao\n[7] Salario\n";
     std::cin >> opcao;
+    cin.ignore();
 
     switch(opcao)
     {
@@ -65,8 +66,8 @@ void Empresa::editarFuncionario()
 
         case 5: //alterar telefone
             std::cout << "Insira o novo telefone: ";
-            std::cin >> novoInt;
-            funcionarios[indice]->setTelefone(novoInt);
+            getline(cin, novoString);
+            funcionarios[indice]->setTelefone(novoString);
             break;
 
         case 6: //alterar designacao
@@ -130,9 +131,9 @@ void Empresa::exibirRegistro(int indice){
     string tipo[4]{"Operador", "Gerente", "Diretor", "Presidente"};
     std::cout << "Nome: " << funcionarios[indice]->getNome() << endl;
     std::cout << "Codigo: " << funcionarios[indice]->getCodigo() << endl;
-    std::cout << "Designação: " << tipo[funcionarios[indice]->getDesignacao()] << endl;
-    std::cout << "Data de Entrada: " << funcionarios[indice]->getDia() << "/" << 
-    funcionarios[indice]->getMes() << "/" << funcionarios[indice]->getAno() << endl;
+    std::cout << "Designação: " << tipo[funcionarios[indice]->getDesignacao()-1] << endl;
+    std::cout << "Data de Entrada: " << funcionarios[indice]->getData().getDia() << "/" << 
+    funcionarios[indice]->getData().getMes() << "/" << funcionarios[indice]->getData().getAno() << endl;
     std::cout << "Telefone: " << funcionarios[indice]->getTelefone() << endl;
     std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << endl;
     std::cout << "Endereco: " << funcionarios[indice]->getEndereco() << endl;
@@ -221,7 +222,7 @@ void Empresa::adicionarFuncionario(){
     int codigo;
     std::string nome;
     std::string endereco;
-    int telefone;
+    std::string telefone;
     int dia, mes, ano;
     int tipo;
     float salario;
@@ -237,7 +238,7 @@ void Empresa::adicionarFuncionario(){
     getline(cin, endereco); //TRANSFORMAR EM CEP DPS
 
     cout << "Insira o telefone:" << endl;
-    cin >> telefone;
+    getline(cin, telefone);
 
     cout << "Insira a data de entrada (DD MM AAAA):" << endl;
     cin >> dia >> mes >> ano;
@@ -249,6 +250,7 @@ void Empresa::adicionarFuncionario(){
     cin >> salario;
 
     Data data(dia, mes, ano);
+
     Funcionario *funcionario = new Funcionario(codigo, nome, endereco, telefone, data, tipo, salario);
 
     funcionarios.push_back(funcionario);

@@ -1,6 +1,6 @@
 #include "Funcionario.h"
 
-Funcionario::Funcionario(int codigo, std::string nome, std::string endereco, int telefone, Data data, int designacao, float salarioDiario)
+Funcionario::Funcionario(int codigo, std::string nome, std::string endereco, std::string telefone, Data data, int designacao, float salarioDiario)
 {
     this-> codigo = codigo;
     this-> nome = nome;
@@ -36,7 +36,7 @@ std::string Funcionario::getEndereco()
     return this->endereco;
 }
 
-int Funcionario::getTelefone()
+std::string Funcionario::getTelefone()
 {
     return this->telefone;
 }
@@ -71,7 +71,7 @@ void Funcionario::setEndereco(std::string endereco)
    this->endereco = endereco;
 }
 
-void Funcionario::setTelefone(int telefone)
+void Funcionario::setTelefone(std::string telefone)
 {
    this->telefone = telefone;
 }
