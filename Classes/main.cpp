@@ -9,7 +9,9 @@
 
 int main()
 {
+    Empresa emp;
 
-
+    emp.adicionarFuncionario();
+    emp.exibirListaFuncionarios();
     
 }
