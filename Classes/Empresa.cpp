@@ -6,6 +6,10 @@ using namespace std;
 
 Empresa::Empresa()
 {
+    for(int i = 0; i < 12; i++)
+    {
+        folhaSalarialCalculada[i] = 0;
+    }
 
 }
 
@@ -72,9 +76,9 @@ void Empresa::editarFuncionario()
             break;
 
         case 7: //alterar  salario
-            std::cout << "Insira o novo salario: ";
+            std::cout << "Insira o novo diário salario: ";
             std::cin >> novoFloat;
-            funcionarios[indice]->setSalario(novoFloat);
+            funcionarios[indice]->setSalarioDiario(novoFloat);
             break;
     }
 }
@@ -130,7 +134,7 @@ void Empresa::exibirRegistro(int indice){
     std::cout << "Data de Entrada: " << funcionarios[indice]->getDia() << "/" << 
     funcionarios[indice]->getMes() << "/" << funcionarios[indice]->getAno() << endl;
     std::cout << "Telefone: " << funcionarios[indice]->getTelefone() << endl;
-    std::cout << "Salario: " << funcionarios[indice]->getSalario() << endl;
+    std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << endl;
     std::cout << "Endereco: " << funcionarios[indice]->getEndereco() << endl;
 }
 
@@ -166,7 +170,27 @@ int Empresa::buscarFuncionario(int codigo)
 }
 void Empresa::calcularFolhaSalarial()
 {
+    int mes;
+
+    std::cout << "Digite o numero do mes que voce deseja calcular a folha salarial:\n";
+    cin >> mes;
+
+    if(folhaSalarialCalculada[mes] == 1){
+        std::cout << "A folha salarial desse mes já foi calculada.";
+        // colocar excepiton ------------------------------------------------------------------------
+    }else{
+        std::cout << "Calculando folha salarial...";
+
+    }
+
+    for(int i = 0; i < funcionarios.size(); i++){
+        funcionarios[i]->getFolhaDoMes(mes).geraDiasEHoras();
+        funcionarios[i]->getFolhaDoMes(mes).calculaFolha(funcionarios[i]->getSalarioDiario());
+    }
+
+    std::cout << "Folha salarial calculada com sucesso!";
 }
+
 void Empresa::exibirListaFuncionariosTipo()
 {
     int designacao;
@@ -184,14 +208,7 @@ void Empresa::exibirListaFuncionariosTipo()
 
     std::cout << "----------------------------------------------\n";
 }
-void Empresa::folhaSalarialFuncionario()
-{
 
-}
-void Empresa::folhaSalarialEmpresa()
-{
-
-}
 void Empresa::folhaSalarialFuncionario() //imprime a folha salarial de um único funcionário.
 {
 
@@ -228,7 +245,7 @@ void Empresa::adicionarFuncionario(){
     cout << "Insira a designacao do funcionario\n[1] Operador\n[2] Gerente\n[3] Diretor\n[4] Presidente\n" << endl;
     cin >> tipo;
 
-    cout << "Insira o salario:" << endl;
+    cout << "Insira o salario diário:" << endl;
     cin >> salario;
 
     Data data(dia, mes, ano);

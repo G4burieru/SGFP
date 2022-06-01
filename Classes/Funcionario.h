@@ -2,6 +2,7 @@
 #define FUNCIONARIO_H
 
 #include "Data.h"
+#include "FolhaSalarial.h"
 #include <iostream>
 
 class Funcionario : public Data
@@ -18,7 +19,9 @@ public:
     int getTelefone();
     Data getData();
     int getDesignacao();
-    float getSalario();
+    float getSalarioDiario();
+    FolhaSalarial getFolhaDoMes(int mes);
+
 
     void setCodigo(int codigo);
     void setNome(std::string nome);
@@ -26,7 +29,7 @@ public:
     void setTelefone(int telefone);
     void setData(Data data);
     void setDesignacao(int designacao);
-    void setSalario(float salario);
+    void setSalarioDiario(float salario);
 
 protected:
     int codigo;
@@ -35,7 +38,8 @@ protected:
     int telefone;
     Data data;
     int designacao;
-    float salario;
+    float salarioDiario;
+    FolhaSalarial FolhaDoMes[12]; 
 
 
 };

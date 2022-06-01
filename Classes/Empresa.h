@@ -27,7 +27,7 @@ public:
 
 private:
     std::vector<Funcionario*> funcionarios;
-
+    bool folhaSalarialCalculada[12];
 };
 
 #endif
