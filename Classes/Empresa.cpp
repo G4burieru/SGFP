@@ -34,7 +34,7 @@ void Empresa::editarFuncionario()
     std::cout << "Insira o codigo do funcionario a se alterar: ";
     std::cin >> codigo;
     
-    indice = buscarFuncionario(codigo);
+    indice = getFuncionario(codigo);
 
     std::cout << "Escolha o que alterar: \n[1] Codigo\n[2] Data de Ingresso"
     "\n[3] Nome\n[4] Endereco\n[5] Telefone\n[6] Designacao\n[7] Salario\n";
@@ -112,25 +112,28 @@ void Empresa::excluirFuncionario()
 
     if(encontrado==false)
     {    
-        std::cout << "Funcionario de codigo: "<< codigo << " nao encontrado.";
-    }
-
-    if(designacao==4||designacao==3)
+        std::cout << "Funcionario de codigo: "<< codigo << " nao encontrado.\n";
+    }else
     {
-        throw "acesso negado";
-    }
-    else
-    {
-         std::cout << "Voce tem certeza que quer apagar o funcionário " << funcionarios[indice]->getNome() 
-         << "?\n [1] Sim, excluir\n[0] Nao, manter\n";
-
-        std::cin >> confirmacao;
-        if(confirmacao==true)
+        if(designacao==4||designacao==3)
         {
-            funcionarios.erase(funcionarios.begin()+indice);
-            std::cout << "Funcionario removido com sucesso!\n";
+            //throw "acesso negado"; ----------------------------------------------------------------------
+            cout << "Acesso negado"; // Provisorio ----------------------------------------------------------
+        }else
+            {
+            std::cout << "Voce tem certeza que quer apagar o funcionário " << funcionarios[indice]->getNome() 
+            << "?\n [1] Sim, excluir\n[0] Nao, manter\n";
+
+            std::cin >> confirmacao;
+            if(confirmacao==true)
+            {
+                funcionarios.erase(funcionarios.begin()+indice);
+                std::cout << "Funcionario removido com sucesso!\n";
+            }
         }
     }
+
+    
 }
 
 void Empresa::exibirRegistro(int indice){
@@ -155,7 +158,7 @@ void Empresa::exibirListaFuncionarios()
 
 }
 
-int Empresa::buscarFuncionario(long codigo)
+int Empresa::getFuncionario(long codigo)
 {
     int indice;
     bool encontrado;
