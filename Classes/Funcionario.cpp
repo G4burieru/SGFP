@@ -1,6 +1,6 @@
 #include "Funcionario.h"
 
-Funcionario::Funcionario(int codigo, std::string nome, std::string endereco, std::string telefone, Data data, int designacao, float salarioDiario)
+Funcionario::Funcionario(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, int designacao, float salarioDiario)
 {
     this-> codigo = codigo;
     this-> nome = nome;
@@ -21,7 +21,7 @@ void Funcionario::aumentoSalarial(){
 
 }
 
-int Funcionario::getCodigo()
+long Funcionario::getCodigo()
 {
     return this->codigo;
 }
@@ -56,7 +56,7 @@ float Funcionario::getSalarioDiario()
     return this->salarioDiario;
 }
 
-void Funcionario::setCodigo(int codigo)
+void Funcionario::setCodigo(long codigo)
 {
    this->codigo = codigo;
 }

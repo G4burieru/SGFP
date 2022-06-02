@@ -1,4 +1,9 @@
 #include "Empresa.h"
+#include "Funcionario.h"
+#include "Operador.h"
+#include "Gerente.h"
+#include "Diretor.h"
+#include "Presidente.h"
 #include <iostream>
 #include <string>
 
@@ -21,6 +26,7 @@ Empresa::~Empresa()
 void Empresa::editarFuncionario()
 {
     int indice, codigo, opcao, novoInt, novoDia, novoMes, novoAno;
+    long novoLong;
     string novoString;
     float novoFloat;
     Data novaData(0, 0, 0);
@@ -28,7 +34,7 @@ void Empresa::editarFuncionario()
     std::cout << "Insira o codigo do funcionario a se alterar: ";
     std::cin >> codigo;
     
-    indice = buscarFuncionario(codigo);
+    indice = getFuncionario(codigo);
 
     std::cout << "Escolha o que alterar: \n[1] Codigo\n[2] Data de Ingresso"
     "\n[3] Nome\n[4] Endereco\n[5] Telefone\n[6] Designacao\n[7] Salario\n";
@@ -39,8 +45,8 @@ void Empresa::editarFuncionario()
     {
         case 1: //alterar codigo 
             std::cout << "Insira o novo codigo: ";
-            std::cin >> novoInt;
-            funcionarios[indice]->setCodigo(novoInt);
+            std::cin >> novoLong;
+            funcionarios[indice]->setCodigo(novoLong);
             break;
 
         case 2: //alterar dataIngresso
@@ -106,25 +112,28 @@ void Empresa::excluirFuncionario()
 
     if(encontrado==false)
     {    
-        std::cout << "Funcionario de codigo: "<< codigo << " nao encontrado.";
-    }
-
-    if(designacao==4||designacao==3)
+        std::cout << "Funcionario de codigo: "<< codigo << " nao encontrado.\n";
+    }else
     {
-        throw "acesso negado";
-    }
-    else
-    {
-         std::cout << "Voce tem certeza que quer apagar o funcionário " << funcionarios[indice]->getNome() 
-         << "?\n [1] Sim, excluir\n[0] Nao, manter\n";
-
-        std::cin >> confirmacao;
-        if(confirmacao==true)
+        if(designacao==4||designacao==3)
         {
-            funcionarios.erase(funcionarios.begin()+indice);
-            std::cout << "Funcionario removido com sucesso!\n";
+            //throw "acesso negado"; ----------------------------------------------------------------------
+            cout << "Acesso negado"; // Provisorio ----------------------------------------------------------
+        }else
+            {
+            std::cout << "Voce tem certeza que quer apagar o funcionário " << funcionarios[indice]->getNome() 
+            << "?\n [1] Sim, excluir\n[0] Nao, manter\n";
+
+            std::cin >> confirmacao;
+            if(confirmacao==true)
+            {
+                funcionarios.erase(funcionarios.begin()+indice);
+                std::cout << "Funcionario removido com sucesso!\n";
+            }
         }
     }
+
+    
 }
 
 void Empresa::exibirRegistro(int indice){
@@ -149,7 +158,7 @@ void Empresa::exibirListaFuncionarios()
 
 }
 
-int Empresa::buscarFuncionario(int codigo)
+int Empresa::getFuncionario(long codigo)
 {
     int indice;
     bool encontrado;
@@ -167,6 +176,7 @@ int Empresa::buscarFuncionario(int codigo)
     if(encontrado==false)
     {    
         std::cout << "Funcionario de codigo: "<< codigo << " nao encontrado.";
+        return 0;
     }
 }
 void Empresa::calcularFolhaSalarial()
@@ -219,7 +229,7 @@ void Empresa::folhaSalarialEmpresa() //imprime a folha salarial da empresa.
 
 }
 void Empresa::adicionarFuncionario(){
-    int codigo;
+    long codigo;
     std::string nome;
     std::string endereco;
     std::string telefone;
@@ -250,8 +260,30 @@ void Empresa::adicionarFuncionario(){
     cin >> salario;
 
     Data data(dia, mes, ano);
+    Funcionario *funcionario;
 
-    Funcionario *funcionario = new Funcionario(codigo, nome, endereco, telefone, data, tipo, salario);
+    switch (tipo)
+    {
+    case 1:
+         funcionario = new Operador(codigo, nome, endereco, telefone, data, salario);
+        break;
+    
+    case 2:
+         funcionario = new Gerente(codigo, nome, endereco, telefone, data, salario);
+        break;
+    
+    case 3:
+         funcionario = new Diretor(codigo, nome, endereco, telefone, data, salario);
+        break;
+    
+    case 4:
+         funcionario = new Presidente(codigo, nome, endereco, telefone, data, salario);
+        break;
+    
+    default:
+        //incerir exeption ------------------------------------------------------------------------
+        break;
+    }
 
     funcionarios.push_back(funcionario);
 }
@@ -260,5 +292,5 @@ void Empresa::aumentaTodosSalarios(){
     for(int i = 0; i < funcionarios.size(); i++){
         funcionarios[i]->aumentoSalarial();
     }
-    std::cout << "Salarios aumentados com sucesso!";
+    std::cout << "Salarios aumentados com sucesso!\n";
 }
