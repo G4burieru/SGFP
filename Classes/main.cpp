@@ -11,7 +11,12 @@ int main()
 {
     Empresa emp;
 
-    emp.adicionarFuncionario();
+    for(int i = 0; i < 4; i++)
+    {
+        emp.adicionarFuncionario();
+    }
+    
+    emp.aumentaTodosSalarios();
     emp.exibirListaFuncionarios();
     
 }

@@ -1,4 +1,9 @@
 #include "Empresa.h"
+#include "Funcionario.h"
+#include "Operador.h"
+#include "Gerente.h"
+#include "Diretor.h"
+#include "Presidente.h"
 #include <iostream>
 #include <string>
 
@@ -21,6 +26,7 @@ Empresa::~Empresa()
 void Empresa::editarFuncionario()
 {
     int indice, codigo, opcao, novoInt, novoDia, novoMes, novoAno;
+    long novoLong;
     string novoString;
     float novoFloat;
     Data novaData(0, 0, 0);
@@ -39,8 +45,8 @@ void Empresa::editarFuncionario()
     {
         case 1: //alterar codigo 
             std::cout << "Insira o novo codigo: ";
-            std::cin >> novoInt;
-            funcionarios[indice]->setCodigo(novoInt);
+            std::cin >> novoLong;
+            funcionarios[indice]->setCodigo(novoLong);
             break;
 
         case 2: //alterar dataIngresso
@@ -149,7 +155,7 @@ void Empresa::exibirListaFuncionarios()
 
 }
 
-int Empresa::buscarFuncionario(int codigo)
+int Empresa::buscarFuncionario(long codigo)
 {
     int indice;
     bool encontrado;
@@ -167,6 +173,7 @@ int Empresa::buscarFuncionario(int codigo)
     if(encontrado==false)
     {    
         std::cout << "Funcionario de codigo: "<< codigo << " nao encontrado.";
+        return 0;
     }
 }
 void Empresa::calcularFolhaSalarial()
@@ -219,7 +226,7 @@ void Empresa::folhaSalarialEmpresa() //imprime a folha salarial da empresa.
 
 }
 void Empresa::adicionarFuncionario(){
-    int codigo;
+    long codigo;
     std::string nome;
     std::string endereco;
     std::string telefone;
@@ -250,8 +257,30 @@ void Empresa::adicionarFuncionario(){
     cin >> salario;
 
     Data data(dia, mes, ano);
+    Funcionario *funcionario;
 
-    Funcionario *funcionario = new Funcionario(codigo, nome, endereco, telefone, data, tipo, salario);
+    switch (tipo)
+    {
+    case 1:
+         funcionario = new Operador(codigo, nome, endereco, telefone, data, salario);
+        break;
+    
+    case 2:
+         funcionario = new Gerente(codigo, nome, endereco, telefone, data, salario);
+        break;
+    
+    case 3:
+         funcionario = new Diretor(codigo, nome, endereco, telefone, data, salario);
+        break;
+    
+    case 4:
+         funcionario = new Presidente(codigo, nome, endereco, telefone, data, salario);
+        break;
+    
+    default:
+        //incerir exeption ------------------------------------------------------------------------
+        break;
+    }
 
     funcionarios.push_back(funcionario);
 }
@@ -260,5 +289,5 @@ void Empresa::aumentaTodosSalarios(){
     for(int i = 0; i < funcionarios.size(); i++){
         funcionarios[i]->aumentoSalarial();
     }
-    std::cout << "Salarios aumentados com sucesso!";
+    std::cout << "Salarios aumentados com sucesso!\n";
 }

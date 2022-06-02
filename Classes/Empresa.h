@@ -17,7 +17,7 @@ public:
     void exibirRegistro(int indice);
     void exibirListaFuncionarios();
     void exibirListaFuncionariosTipo();
-    int buscarFuncionario(int codigo);
+    int buscarFuncionario(long codigo);
     void calcularFolhaSalarial();
     void folhaSalarialFuncionario();
     void folhaSalarialEmpresa();

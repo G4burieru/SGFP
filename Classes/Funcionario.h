@@ -8,11 +8,11 @@
 class Funcionario : public Data
 {
 public:
-    Funcionario(int codigo, std::string nome, std::string endereco, std::string telefone, Data data, int designacao, float salario);
+    Funcionario(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, int designacao, float salario);
     ~Funcionario();
     virtual void aumentoSalarial();
 
-    int getCodigo();
+    long getCodigo();
     std::string getNome();
     std::string getEndereco();
     std::string getTelefone();
@@ -22,7 +22,7 @@ public:
     FolhaSalarial getFolhaDoMes(int mes);
 
 
-    void setCodigo(int codigo);
+    void setCodigo(long codigo);
     void setNome(std::string nome);
     void setEndereco(std::string endereco);
     void setTelefone(std::string telefone);
@@ -31,7 +31,7 @@ public:
     void setSalarioDiario(float salario);
 
 protected:
-    int codigo;
+    long codigo;
     std::string nome;
     std::string endereco;
     std::string telefone;

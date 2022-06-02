@@ -7,7 +7,7 @@
 class Gerente : public Funcionario
 {
 public:
-    Gerente();
+    Gerente(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, float salarioDiario);
     ~Gerente();
 
     void aumentoSalarial();
