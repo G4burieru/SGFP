@@ -1,6 +1,6 @@
 #include "Presidente.h"
 
-Presidente::Presidente():Funcionario(codigo, nome, endereco, telefone, data, designacao, salarioDiario)
+Presidente::Presidente(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, float salarioDiario):Funcionario(codigo, nome, endereco, telefone, data, 4, salarioDiario)
 {
 
 }

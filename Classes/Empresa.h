@@ -14,10 +14,8 @@ public:
     ~Empresa();
     void editarFuncionario();
     void excluirFuncionario();
-    void exibirRegistro(int indice);
     void exibirListaFuncionarios();
     void exibirListaFuncionariosTipo();
-    int buscarFuncionario(int codigo);
     void calcularFolhaSalarial();
     void folhaSalarialFuncionario();
     void folhaSalarialEmpresa();
@@ -28,6 +26,8 @@ public:
 private:
     std::vector<Funcionario*> funcionarios;
     bool folhaSalarialCalculada[12];
+    int getFuncionario(long codigo);
+    void exibirRegistro(int indice);
 };
 
 #endif
