@@ -19,7 +19,7 @@ int main()
     while(1)
     {
         
-        cout << "O que deseja fazer agora?\n[1] Adicionar Funcionario\n[2] excluir funcionario\n[3] editar funcionario\n[4] exibir lista de funcionarios\n[5] exibir lista de um tipo específica de funcionario \n[6] Calcular folha salarial \n[7] Exibir folha da empresa \n[8] exibir folha de um funcionario expecifico \n[9] Aumentar todos os salarios, eba \n[10] sair\n";
+        cout << "O que deseja fazer agora?\n[1] Adicionar Funcionario\n[2] excluir funcionario\n[3] editar funcionario\n[4] exibir lista de funcionarios\n[5] exibir lista de um tipo específica de funcionario \n[6] Calcular folha salarial \n[7] Exibir folha da empresa \n[8] exibir folha de um funcionario expecifico \n[9] Aumentar todos os salarios, eba \n[10] Buscar Funcionario\n[11] Sair\n";
 
         cin >> fazer;
 
@@ -60,6 +60,11 @@ int main()
         case 9:
             emp.aumentaTodosSalarios();
             break;
+
+        case 10:
+            emp.buscarFuncionario();
+            break;
+
         default:
             return 0;
         }

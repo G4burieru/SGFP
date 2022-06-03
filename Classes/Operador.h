@@ -7,7 +7,7 @@
 class Operador : public Funcionario
 {
 public:
-    Operador(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, float salarioDiario);
+    Operador(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, float salarioDiario);
     ~Operador();
 
     void aumentoSalarial();

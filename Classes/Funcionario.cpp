@@ -1,7 +1,7 @@
 #include "Funcionario.h"
 #include <iostream>
 
-Funcionario::Funcionario(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, int designacao, float salarioDiario)
+Funcionario::Funcionario(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, int designacao, float salarioDiario)
 {
     this-> codigo = codigo;
     this-> nome = nome;
@@ -30,11 +30,6 @@ long Funcionario::getCodigo()
 std::string Funcionario::getNome()
 {
     return this->nome;
-}
-
-std::string Funcionario::getEndereco()
-{
-    return this->endereco;
 }
 
 std::string Funcionario::getTelefone()
@@ -94,6 +89,10 @@ void Funcionario::setSalarioDiario(float salario)
 
 FolhaSalarial Funcionario::getFolhaDoMes(int mes){
     return folhaDoMes[mes-1];
+}
+
+Endereco Funcionario::getEndereco(){
+    return this->endereco;
 }
 
 void Funcionario::setDiasTrabalhadosMes(int dias, int mes){

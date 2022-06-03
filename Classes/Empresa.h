@@ -22,6 +22,7 @@ public:
     void ImprimeFolhaSalarialEmpresa();
     void adicionarFuncionario();
     void aumentaTodosSalarios();
+    void buscarFuncionario();
     
 
 protected:

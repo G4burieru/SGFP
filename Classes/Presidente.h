@@ -7,7 +7,7 @@
 class Presidente : public Funcionario
 {
 public:
-    Presidente(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, float salarioDiario);
+    Presidente(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, float salarioDiarios);
     ~Presidente();
 
     void aumentoSalarial();
