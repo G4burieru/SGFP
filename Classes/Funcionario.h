@@ -29,6 +29,14 @@ public:
     void setData(Data data);
     void setDesignacao(int designacao);
     void setSalarioDiario(float salario);
+    void setDiasTrabalhadosMes(int dias, int mes);
+    void setHorasExtrasMes(float horas, int mes);
+    void calculaFolhaMes(float SalarioDiario, int mes);
+    void imprimirFolhaMes(int mes);
+    void imprimirFolhaAnual();
+    float getSalarioAno();
+    float getImpostoRendAno();
+    float getPrevidenciaAno();
 
 protected:
     long codigo;

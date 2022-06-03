@@ -50,13 +50,11 @@ int main()
             break;
 
         case 7:
-            cout << "Desculpe, ainda estamos implementado essa função =(\n";
-            //emp.folhaSalarialEmpresa();
+            emp.ImprimeFolhaSalarialEmpresa();
             break;
         
         case 8:
-            cout << "Desculpe, ainda estamos implementado essa função =(\n";
-            //emp.folhaSalarialFuncionario();
+            emp.ImprimeFolhaSalarialFuncionario();
             break;
 
         case 9:
@@ -66,17 +64,5 @@ int main()
             return 0;
         }
     }
-    
-    
-
-    for(int i = 0; i < 4; i++)
-    {
-        emp.adicionarFuncionario();
-    }
-
-    emp.aumentaTodosSalarios();
-    emp.exibirListaFuncionarios();
-
-    emp.editarFuncionario();
     
 }
