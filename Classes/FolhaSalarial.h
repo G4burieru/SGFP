@@ -8,9 +8,8 @@ class FolhaSalarial
 public:
     FolhaSalarial();
     ~FolhaSalarial();
-    void geraDiasEHoras();
+
     void calculaSalario(float SalarioDiario);
-    void calculaFolha(float SalarioDiario);
     void calculaPrevidencia();
     void calculaImportoRend();
     void caculaSalarioLiqudo();
@@ -19,6 +18,11 @@ public:
     float getSalarioMesLiquido();
     float getDescontoPrevidencia();
     float getDescontoImpostoRend();
+
+    void setDiasTrabalhados(int dias);
+    void setHorasExtras(float horas);
+    float getHorasExtras();
+    int getDiasTrabalhados();
 
 private:
     int diasTrabalhados;

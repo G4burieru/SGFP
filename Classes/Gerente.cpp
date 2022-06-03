@@ -1,6 +1,6 @@
 #include "Gerente.h"
 
-Gerente::Gerente(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, float salarioDiario):Funcionario(codigo, nome, endereco, telefone, data, 2, salarioDiario)
+Gerente::Gerente(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, float salarioDiario):Funcionario(codigo, nome, endereco, telefone, data, 2, salarioDiario)
 {
 
 }

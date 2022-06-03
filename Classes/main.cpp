@@ -19,7 +19,7 @@ int main()
     while(1)
     {
         
-        cout << "O que deseja fazer agora?\n[1] Adicionar Funcionario\n[2] excluir funcionario\n[3] editar funcionario\n[4] exibir lista de funcionarios\n[5] exibir lista de um tipo específica de funcionario \n[6] Calcular folha salarial \n[7] Exibir folha da empresa \n[8] exibir folha de um funcionario expecifico \n[9] Aumentar todos os salarios, eba \n[10] sair\n";
+        cout << "O que deseja fazer agora?\n[1] Adicionar Funcionario\n[2] excluir funcionario\n[3] editar funcionario\n[4] exibir lista de funcionarios\n[5] exibir lista de um tipo específica de funcionario \n[6] Calcular folha salarial \n[7] Exibir folha da empresa \n[8] exibir folha de um funcionario expecifico \n[9] Aumentar todos os salarios, eba \n[10] Buscar Funcionario\n[11] Sair\n";
 
         cin >> fazer;
 
@@ -50,33 +50,24 @@ int main()
             break;
 
         case 7:
-            cout << "Desculpe, ainda estamos implementado essa função =(\n";
-            //emp.folhaSalarialEmpresa();
+            emp.ImprimeFolhaSalarialEmpresa();
             break;
         
         case 8:
-            cout << "Desculpe, ainda estamos implementado essa função =(\n";
-            //emp.folhaSalarialFuncionario();
+            emp.ImprimeFolhaSalarialFuncionario();
             break;
 
         case 9:
             emp.aumentaTodosSalarios();
             break;
+
+        case 10:
+            emp.buscarFuncionario();
+            break;
+
         default:
             return 0;
         }
     }
-    
-    
-
-    for(int i = 0; i < 4; i++)
-    {
-        emp.adicionarFuncionario();
-    }
-
-    emp.aumentaTodosSalarios();
-    emp.exibirListaFuncionarios();
-
-    emp.editarFuncionario();
     
 }

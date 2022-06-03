@@ -6,6 +6,7 @@ using namespace std;
 #include "Funcionario.h"
 #include <iostream>
 #include <vector>
+#include <string>
 
 class Empresa
 {
@@ -17,17 +18,24 @@ public:
     void exibirListaFuncionarios();
     void exibirListaFuncionariosTipo();
     void calcularFolhaSalarial();
-    void folhaSalarialFuncionario();
-    void folhaSalarialEmpresa();
+    void ImprimeFolhaSalarialFuncionario();
+    void ImprimeFolhaSalarialEmpresa();
     void adicionarFuncionario();
     void aumentaTodosSalarios();
+    void buscarFuncionario();
+    
 
+protected:
+    void setDiasEHorasAleatorios(int mes, int indice);
+    int getIntAleatorio(int maximo);
+    int getFuncionarioPorCodigo(long codigo);
+    int getFuncionarioPorNome(std::string nome);
+    void exibirRegistro(int indice);
 
 private:
     std::vector<Funcionario*> funcionarios;
     bool folhaSalarialCalculada[12];
-    int getFuncionario(long codigo);
-    void exibirRegistro(int indice);
+    
 };
 
 #endif
