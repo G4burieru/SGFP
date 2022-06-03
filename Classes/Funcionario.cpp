@@ -125,7 +125,7 @@ void Funcionario::imprimirFolhaMes(int mes)
 
 float Funcionario::getSalarioAno()
 {
-    int total = 0;
+    float total = 0;
     
     for(int i = 0; i < 12; i++)
     {
@@ -138,7 +138,7 @@ float Funcionario::getSalarioAno()
 
 float Funcionario::getImpostoRendAno()
 {
-    int total = 0;
+    float total = 0;
     
     for(int i = 0; i < 12; i++)
     {
@@ -150,7 +150,7 @@ float Funcionario::getImpostoRendAno()
 
 float Funcionario::getPrevidenciaAno()
 {
-    int total = 0;
+    float total = 0;
     
     for(int i = 0; i < 12; i++)
     {
