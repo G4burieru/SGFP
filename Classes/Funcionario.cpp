@@ -1,4 +1,5 @@
 #include "Funcionario.h"
+#include <iostream>
 
 Funcionario::Funcionario(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, int designacao, float salarioDiario)
 {
@@ -92,5 +93,80 @@ void Funcionario::setSalarioDiario(float salario)
 }
 
 FolhaSalarial Funcionario::getFolhaDoMes(int mes){
-    return folhaDoMes[mes];
+    return folhaDoMes[mes-1];
+}
+
+void Funcionario::setDiasTrabalhadosMes(int dias, int mes){
+    folhaDoMes[mes-1].setDiasTrabalhados(dias);
+}
+void Funcionario::setHorasExtrasMes(float horas, int mes){
+    folhaDoMes[mes-1].setHorasExtras(horas);
+}
+
+void Funcionario::calculaFolhaMes(float SalarioDiario, int mes)
+{
+    folhaDoMes[mes-1].calculaSalario(SalarioDiario);
+    folhaDoMes[mes-1].calculaPrevidencia();
+    folhaDoMes[mes-1].calculaImportoRend();
+    folhaDoMes[mes-1].caculaSalarioLiqudo();
+}
+
+void Funcionario::imprimirFolhaMes(int mes)
+{
+    std::cout << std::endl;
+    std::cout << "Funcionario: " << nome << std::endl;
+    std::cout << "Salario Bruto: R$ " << folhaDoMes[mes-1].getSalarioMesBruto() << std::endl;
+    std::cout << "Desconto da previdencia social: R$ " << folhaDoMes[mes-1].getDescontoPrevidencia() << std::endl;
+    std::cout << "Desconto do Imposto de renda: R$ " << folhaDoMes[mes-1].getDescontoImpostoRend() << std::endl;
+    std::cout << "Total de Descontos: R$ " << folhaDoMes[mes-1].getDescontoPrevidencia() + folhaDoMes[mes-1].getDescontoImpostoRend() << std::endl;
+    std::cout << "Salario Liquido: R$ " << folhaDoMes[mes-1].getSalarioMesLiquido() << std::endl;
+    std::cout << std::endl;
+}
+
+float Funcionario::getSalarioAno()
+{
+    float total = 0;
+    
+    for(int i = 0; i < 12; i++)
+    {
+        total += folhaDoMes[i].getSalarioMesBruto();
+    }
+
+    return total;
+    
+}
+
+float Funcionario::getImpostoRendAno()
+{
+    float total = 0;
+    
+    for(int i = 0; i < 12; i++)
+    {
+        total += folhaDoMes[i].getDescontoImpostoRend();
+    }
+
+    return total;
+}
+
+float Funcionario::getPrevidenciaAno()
+{
+    float total = 0;
+    
+    for(int i = 0; i < 12; i++)
+    {
+        total += folhaDoMes[i].getDescontoPrevidencia();
+    }
+
+    return total;
+}
+
+void Funcionario::imprimirFolhaAnual(){
+    std::cout << std::endl;
+    std::cout << "Funcionario: " << nome << std::endl;
+    std::cout << "Salario Anual Bruto: R$ " << getSalarioAno() << std::endl;
+    std::cout << "Desconto anual da previdencia social: R$ " << getPrevidenciaAno() << std::endl;
+    std::cout << "Desconto anual do Imposto de renda: R$ " << getImpostoRendAno() << std::endl;
+    std::cout << "Total de Descontos: R$ " << getPrevidenciaAno() + getImpostoRendAno() << std::endl;
+    std::cout << "Salario Anual Liquido: R$ " << getSalarioAno() - getPrevidenciaAno() - getImpostoRendAno() << std::endl;
+    std::cout << std::endl;
 }

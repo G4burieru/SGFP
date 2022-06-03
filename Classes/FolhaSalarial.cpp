@@ -14,11 +14,6 @@ FolhaSalarial::~FolhaSalarial()
 {
 
 }
-void FolhaSalarial::geraDiasEHoras()
-{
-    //Implementar-----------------------------------------------------------------------------
-    //Colocar erro ao executar duas vezes-----------------------------------------------------
-}
 
 void FolhaSalarial::calculaSalario(float salarioDiario)
 {
@@ -72,14 +67,6 @@ void FolhaSalarial::caculaSalarioLiqudo()
     salarioMesLiquido = salarioMesBruto - (descontoImpostoRend + descontoPrevidencia);
 }
 
-void FolhaSalarial::calculaFolha(float SalarioDiario)
-{
-    calculaSalario(SalarioDiario);
-    calculaPrevidencia();
-    calculaImportoRend();
-    caculaSalarioLiqudo();
-}
-
 float FolhaSalarial::getSalarioMesBruto()
 {
     return salarioMesBruto;
@@ -98,4 +85,21 @@ float FolhaSalarial::getDescontoPrevidencia()
 float FolhaSalarial::getDescontoImpostoRend()
 {
     return descontoImpostoRend;
+}
+
+float FolhaSalarial::getHorasExtras()
+{
+    return horasExtras;
+}
+
+int FolhaSalarial::getDiasTrabalhados()
+{
+    return diasTrabalhados;
+}
+
+void FolhaSalarial::setDiasTrabalhados(int dias){
+    diasTrabalhados = dias;
+}
+void FolhaSalarial::setHorasExtras(float horas){
+    horasExtras = horas;
 }
