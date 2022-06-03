@@ -3,24 +3,24 @@
 
 #include "Data.h"
 #include "FolhaSalarial.h"
+#include "Endereco.h"
 #include <iostream>
 
 class Funcionario : public Data
 {
 public:
-    Funcionario(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, int designacao, float salario);
+    Funcionario(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, int designacao, float salario);
     ~Funcionario();
     virtual void aumentoSalarial();
 
     long getCodigo();
     std::string getNome();
-    std::string getEndereco();
+    Endereco getEndereco();
     std::string getTelefone();
     Data getData();
     int getDesignacao();
     float getSalarioDiario();
     FolhaSalarial getFolhaDoMes(int mes);
-
 
     void setCodigo(long codigo);
     void setNome(std::string nome);
@@ -41,7 +41,7 @@ public:
 protected:
     long codigo;
     std::string nome;
-    std::string endereco;
+    Endereco endereco;
     std::string telefone;
     Data data;
     int designacao;

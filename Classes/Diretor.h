@@ -7,7 +7,7 @@
 class Diretor : public Funcionario
 {
 public:
-    Diretor(long codigo, std::string nome, std::string endereco, std::string telefone, Data data, float salarioDiario);
+    Diretor(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, float salarioDiario);
     ~Diretor();
 
     void aumentoSalarial();

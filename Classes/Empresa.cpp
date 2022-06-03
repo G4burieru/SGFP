@@ -4,6 +4,7 @@
 #include "Gerente.h"
 #include "Diretor.h"
 #include "Presidente.h"
+#include "Endereco.h"
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -138,6 +139,7 @@ void Empresa::excluirFuncionario()
 }
 
 void Empresa::exibirRegistro(int indice){
+    std::cout << endl;
     string tipo[4]{"Operador", "Gerente", "Diretor", "Presidente"};
     std::cout << "Nome: " << funcionarios[indice]->getNome() << endl;
     std::cout << "Codigo: " << funcionarios[indice]->getCodigo() << endl;
@@ -146,7 +148,9 @@ void Empresa::exibirRegistro(int indice){
     funcionarios[indice]->getData().getMes() << "/" << funcionarios[indice]->getData().getAno() << endl;
     std::cout << "Telefone: " << funcionarios[indice]->getTelefone() << endl;
     std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << endl;
-    std::cout << "Endereco: " << funcionarios[indice]->getEndereco() << endl;
+    std::cout << "Endereco: " << funcionarios[indice]->getEndereco().getRua() << endl;
+    std::cout << endl;
+    //Exibit o resto das coisas do endereço --------------------------------------------------------------------------------------
 }
 
 void Empresa::exibirListaFuncionarios()
@@ -325,7 +329,7 @@ void Empresa::ImprimeFolhaSalarialEmpresa() //imprime a folha salarial da empres
 void Empresa::adicionarFuncionario(){
     long codigo;
     std::string nome;
-    std::string endereco;
+    std::string cep;
     std::string telefone;
     int dia, mes, ano;
     int tipo;
@@ -338,8 +342,8 @@ void Empresa::adicionarFuncionario(){
     cout << "Insira o nome do funcionario:" << endl;
     getline(cin, nome);
 
-    cout << "Insira o endereco:" << endl;
-    getline(cin, endereco); //TRANSFORMAR EM CEP DPS -------------------------------------------------
+    cout << "Insira o CEP (Apenas Numeros):" << endl;
+    getline(cin, cep); 
 
     cout << "Insira o telefone:" << endl;
     getline(cin, telefone);
@@ -354,6 +358,7 @@ void Empresa::adicionarFuncionario(){
     cin >> salario;
 
     Data data(dia, mes, ano);
+    Endereco endereco(cep);
     Funcionario *funcionario;
 
     switch (tipo)
@@ -418,4 +423,163 @@ void Empresa::setDiasEHorasAleatorios(int mes, int indice)
     
     funcionarios[indice]->setHorasExtrasMes((getIntAleatorio(maxHoras)), mes);
 
+}
+
+void Empresa::buscarFuncionario(){
+
+    bool achou = false; //vai informar se um funcionário foi encontrado
+    int tipo, tipoEnd; //tipo vai informar qual elemento será usado para fazer a busca do funcionário e tipoEnd vai informar qual elemento será usado para fazer a busca do endereço
+    std::string nome, endereco; //nome vai armazenar o nome digitado pelo usuario e Endereço vai armazenar o Endereço digitado pelo usuario. ambos seram usados para fazer uma busca de funcionário
+
+    std::cout << "Qual informação você deseja usar para buscar um funcionário?\n[1] Nome\n[2] Data de ingresso\n[3] Endereço" << std::endl;
+    std::cin >> tipo;
+    
+    //switch case que vai funcionar de acordo com o que o usuario escolheu
+    switch(tipo)
+    {
+        case 1:
+        //caso o elemento escolhido for 1 (nome), sera usado um for para percorrer todos os elementos do vector ate achar um funcionário que tenha o nome digitado em alguma parte de seu nome completo
+            std::cin.ignore(); //ignora o '\n' lido pelo cin
+            std::cout << "Digite um nome pelo qual você deseja procurar um funcionário" << std::endl;
+            std::getline(std::cin, nome); // le o que o usuario deseja usar na busca
+            //for que percorre todos os elementos do vector
+            for(int i = 0; i < funcionarios.size(); i++){
+                //se o nome digitado pelo usuario estiver presente no nome completo do funcionário do indice i, achou será true e o funcionário será exibido
+                if(funcionarios[i]->getNome().find(nome) != std::string::npos){
+                    achou = true;
+                    //exibirListaFuncionarios filtrando pela informacao fornecida
+                    exibirRegistro(i);
+                }
+            }
+            //caso nao tenha sido encontrado nenhum funcionário com aquele nome (achou continua como false), o programa informará o erro
+            if(!achou){
+                std::cout << "Não existe nenhum funcionário com esse nome na empresa." << std::endl;
+            }
+            break;
+        case 2:
+        //caso o elemento escolhido for 2 (data), sera usado um for para percorrer todos os elementos do vector ate achar um funcionário com aquele intervalo de data de ingresso
+            int dia1, dia2, mes1, mes2, ano1, ano2; // variaveis para ler os dois intervalos de tempo que seram usados para buscar um funcionário
+            std::cout << "Digite a primeira data do intervalo (menor data) no padrao (DD MM AAAA)" << std::endl;
+            std::cin >> dia1 >> mes1 >> ano1;//le a primeira data
+            std::cout << "Digite a segunda data do intervalo (maior data) no padrao (DD MM AAAA)" << std::endl;
+            std::cin >> dia2 >> mes2 >> ano2;//le a segunda data
+            for(int i = 0; i < funcionarios.size(); i++){
+                //verifica se o funcionário tem seu ano dentro do intervalo de anos fornecidos
+                if(funcionarios[i]->getData().getAno() >= ano1 && funcionarios[i]->getData().getAno() <= ano2){  
+                    //verifica se o ano do funcionário é o menor ano possivel e então verifica se o seu mês está dentro do intervalo válido
+                    if(funcionarios[i]->getData().getAno() == ano1 && funcionarios[i]->getData().getMes() >= mes1 && funcionarios[i]->getData().getMes() <= 12){
+                        //se o seu mês for o menor possível, verifica se o seu dia está dentro do intervalo válido
+                        if(funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() >= dia1 && funcionarios[i]->getData().getDia() <= 30){
+                            achou = true;
+                            //exibirListaFuncionarios filtrando pela informacao fornecida
+                            exibirRegistro(i);
+                        }
+                    }
+                    //verifica se o ano do funcionário é o maior ano possivel e então verifica se o seu mês está dentro do intervalo válido
+                    else if(funcionarios[i]->getData().getAno() == ano2 && funcionarios[i]->getData().getMes() <= mes2 && funcionarios[i]->getData().getMes() >= 1){
+                        //se o seu mês for o maior possível, verifica se o seu dia está dentro do intervalo válido
+                        if(funcionarios[i]->getData().getMes() == mes2 && funcionarios[i]->getData().getDia() <= dia2 && funcionarios[i]->getData().getDia() >= 1){
+                            achou = true;
+                            //exibirListaFuncionarios filtrando pela informacao fornecida
+                            exibirRegistro(i);
+                        }
+                    }
+                    //se o ano do funcionário estiver dentro do intervalo, mas não for nem o menor e nem o maior possível, então certamente a data do funcionário está dentro do intervalo aceito
+                    else if(funcionarios[i]->getData().getAno() > ano1 && funcionarios[i]->getData().getAno() < ano2){
+                        achou = true;
+                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        exibirRegistro(i);
+                    }                                                                           
+                }
+            }
+            //caso nao tenha sido encontrado nenhum funcionário naquele intervalo de tempo, o programa informara o erro
+            if(!achou){
+                std::cout << "Nenhum funcionário foi contratado nesse intervalo de tempo." << std::endl;
+            }
+            break;
+        case 3:
+        //caso o elemento escolhido for 3 (Endereço), será perguntado ao usuário se ele deseja fazer a busca por [1] Cidade, [2] Bairro, [3] Rua ou [4] CEP
+            std::cout << "Qual elementos você deseja usar para fazer a busca?\n[1] Cidade\n[2] Bairro\n[3] Rua\n[4] CEP" << std::endl;
+            std::cin >> tipoEnd;
+            std::cin.ignore();
+            switch (tipoEnd)
+            {
+            case 1:
+            {
+                std::string cidade;
+                std::cout << "Digite a cidade que você deseja fazer a busca" << std::endl;
+                getline(std::cin, cidade);
+                //for que percorre todos os elementos do vector
+                for(int i = 0; i < funcionarios.size(); i++){
+                    //se a cidade digitada pelo usuario for igual a cidade do funcionário do indice i, achou será true e o funcionário será exibido
+                    if(funcionarios[i]->getEndereco().getCidade().find(cidade) != std::string::npos){
+                        achou = true;
+                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        exibirRegistro(i);
+                    }
+                }
+                break;
+            }
+            case 2:
+            {
+                std::string bairro;
+                std::cout << "Digite o bairro que você deseja fazer a busca" << std::endl;
+                getline(std::cin, bairro);
+                for(int i = 0; i < funcionarios.size(); i++){
+                    //se o bairro digitada pelo usuario for igual ao bairro do funcionário do indice i, achou será true e o funcionário será exibido
+                    if(funcionarios[i]->getEndereco().getBairro().find(bairro) != std::string::npos){
+                        achou = true;
+                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        exibirRegistro(i);
+                    }
+                }
+                break;
+            }
+            case 3:
+            {
+                std::string rua;
+                std::cout << "Digite a rua que você deseja fazer a busca" << std::endl;
+                getline(std::cin, rua);
+                for(int i = 0; i < funcionarios.size(); i++){
+                    //se a rua digitada pelo usuario for igual a rua do funcionário do indice i, achou será true e o funcionário será exibido
+                    if(funcionarios[i]->getEndereco().getRua().find(rua) != std::string::npos){
+                        achou = true;
+                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        exibirRegistro(i);
+                    }
+                }
+                break;
+            }
+            case 4:
+            {
+                std::string CEP;
+                std::cout << "Digite o CEP que você deseja fazer a busca" << std::endl;
+                getline(std::cin, CEP);
+                for(int i = 0; i < funcionarios.size(); i++){
+                    //se o CEP digitada pelo usuario for igual ao CEP do funcionário do indice i, achou será true e o funcionário será exibido
+                    if(funcionarios[i]->getEndereco().getCEP() == CEP){
+                        achou = true;
+                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        exibirRegistro(i);
+                    }
+                }
+                break;
+            }
+            
+            default:
+                //caso o tipo digitado nao exista
+                std::cout << "Voce digitou um tipo inválido!" << std::endl;
+                break;
+            }
+            //caso nao tenha sido encontrado nenhum funcionário com aquele endereço, o programa informará o erro
+            if(!achou){
+                std::cout << "Não existe nenhum funcionário com esse endereço na empresa." << std::endl;
+            }
+            break;
+        
+        default:
+            //caso o tipo digitado nao exista
+            std::cout << "Voce digitou um tipo inválido!" << std::endl;
+            break;
+    }
 }
