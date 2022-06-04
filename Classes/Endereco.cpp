@@ -53,13 +53,17 @@ void Endereco::parseCEP(){
     }
 }
 
-Endereco::Endereco(std::string CEP){
+Endereco::Endereco(std::string CEP, std::string numero){
     setCEP(CEP); //seta o CEP
+    setNumero(numero); //seta o numero da rua
 
     parseCEP(); //faz a manipulação do arquivo json e o "parseamento" do CEP
 
 }
 
+std::string Endereco::getEstado(){
+    return estado;
+}
 std::string Endereco::getCidade(){
     return cidade;
 }
@@ -72,10 +76,13 @@ std::string Endereco::getRua(){
 std::string Endereco::getCEP(){
     return CEP;
 }
-std::string Endereco::getEstado(){
-    return estado;
+std::string Endereco::getNumero(){
+    return numero;
 }
 
+void Endereco::setEstado(std::string estado){
+    this->estado = estado;
+}
 void Endereco::setCidade(std::string cidade){
     this->cidade = cidade;
 }
@@ -86,8 +93,11 @@ void Endereco::setRua(std::string rua){
     this->rua = rua;
 }
 void Endereco::setCEP(std::string CEP){
+    if(CEP.size() == 9){
+        CEP.replace(5,1,"");
+    }
     this->CEP = CEP;
 }
-void Endereco::setEstado(std::string estado){
-    this->estado = estado;
+void Endereco::setNumero(std::string numero){
+    this->numero = numero;
 }

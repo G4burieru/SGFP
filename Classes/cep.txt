@@ -1,0 +1,12 @@
+{
+  "cep": "64053-360",
+  "logradouro": "Rua Doutor Anerão Walter Coutinho",
+  "complemento": "",
+  "bairro": "Santa Isabel",
+  "localidade": "Teresina",
+  "uf": "PI",
+  "ibge": "2211001",
+  "gia": "",
+  "ddd": "86",
+  "siafi": "1219"
+}

@@ -1,4 +1,4 @@
 # HSTS 1.0 Known Hosts database for GNU Wget.
 # Edit at your own risk.
 # <hostname>	<port>	<incl. subdomains>	<created>	<max-age>
-viacep.com.br	0	0	1654293154	63072000
+viacep.com.br	0	0	1654304544	63072000

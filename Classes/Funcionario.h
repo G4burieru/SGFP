@@ -24,7 +24,7 @@ public:
 
     void setCodigo(long codigo);
     void setNome(std::string nome);
-    void setEndereco(std::string endereco);
+    void setEndereco(std::string CEP, std::string numeroRua);
     void setTelefone(std::string telefone);
     void setData(Data data);
     void setDesignacao(int designacao);
@@ -41,6 +41,7 @@ public:
 protected:
     long codigo;
     std::string nome;
+    std::string CEP, numeroRua;
     Endereco endereco;
     std::string telefone;
     Data data;
