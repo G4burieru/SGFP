@@ -62,9 +62,9 @@ void Funcionario::setNome(std::string nome)
    this->nome = nome;
 }
 
-void Funcionario::setEndereco(std::string endereco)
+void Funcionario::setEndereco(std::string CEP, std::string numeroRua)
 {
-   this->endereco = endereco;
+   this->endereco = Endereco(CEP, numeroRua);
 }
 
 void Funcionario::setTelefone(std::string telefone)

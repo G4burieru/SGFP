@@ -30,6 +30,7 @@ void Empresa::editarFuncionario()
     int indice, codigo, opcao, novoInt, novoDia, novoMes, novoAno;
     long novoLong;
     string novoString;
+    string novoCEP, novoNumeroRua;
     float novoFloat;
     Data novaData(0, 0, 0);
 
@@ -67,9 +68,10 @@ void Empresa::editarFuncionario()
             break;
         
         case 4: //alterar endereco
-            std::cout <<"Insira o novo endereco: "; // COLOCAR CEP DPS
-            getline(cin, novoString);
-            funcionarios[indice]->setEndereco(novoString);
+            std::cout <<"Insira o novo CEP e numero da rua: ";
+            getline(cin, novoCEP);
+            getline(cin, novoNumeroRua);
+            funcionarios[indice]->setEndereco(novoCEP, novoNumeroRua);
             break;
 
         case 5: //alterar telefone
@@ -148,7 +150,7 @@ void Empresa::exibirRegistro(int indice){
     funcionarios[indice]->getData().getMes() << "/" << funcionarios[indice]->getData().getAno() << endl;
     std::cout << "Telefone: " << funcionarios[indice]->getTelefone() << endl;
     std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << endl;
-    std::cout << "Endereco: " << funcionarios[indice]->getEndereco().getRua() << endl;
+    std::cout << "Endereco: " << funcionarios[indice]->getEndereco().getRua() << ", " << funcionarios[indice]->getEndereco().getNumero() << endl;
     std::cout << endl;
     //Exibit o resto das coisas do endereço --------------------------------------------------------------------------------------
 }
@@ -330,6 +332,7 @@ void Empresa::adicionarFuncionario(){
     long codigo;
     std::string nome;
     std::string cep;
+    std::string numero;
     std::string telefone;
     int dia, mes, ano;
     int tipo;
@@ -342,8 +345,11 @@ void Empresa::adicionarFuncionario(){
     cout << "Insira o nome do funcionario:" << endl;
     getline(cin, nome);
 
-    cout << "Insira o CEP (Apenas Numeros):" << endl;
-    getline(cin, cep); 
+    cout << "Insira o CEP:" << endl;
+    getline(cin, cep);
+
+    cout << "Insira o número da rua:" << endl;
+    getline(cin, numero);
 
     cout << "Insira o telefone:" << endl;
     getline(cin, telefone);
@@ -358,7 +364,7 @@ void Empresa::adicionarFuncionario(){
     cin >> salario;
 
     Data data(dia, mes, ano);
-    Endereco endereco(cep);
+    Endereco endereco(cep, numero);
     Funcionario *funcionario;
 
     switch (tipo)
@@ -447,11 +453,12 @@ void Empresa::buscarFuncionario(){
                 //se o nome digitado pelo usuario estiver presente no nome completo do funcionário do indice i, achou será true e o funcionário será exibido
                 if(funcionarios[i]->getNome().find(nome) != std::string::npos){
                     achou = true;
-                    //exibirListaFuncionarios filtrando pela informacao fornecida
+                    //exibirRegistro do funcionario com o indicie atual (indicie i)
                     exibirRegistro(i);
                 }
             }
             //caso nao tenha sido encontrado nenhum funcionário com aquele nome (achou continua como false), o programa informará o erro
+            //------------------------------------------------exception-----------------------------------------------
             if(!achou){
                 std::cout << "Não existe nenhum funcionário com esse nome na empresa." << std::endl;
             }
@@ -463,38 +470,63 @@ void Empresa::buscarFuncionario(){
             std::cin >> dia1 >> mes1 >> ano1;//le a primeira data
             std::cout << "Digite a segunda data do intervalo (maior data) no padrao (DD MM AAAA)" << std::endl;
             std::cin >> dia2 >> mes2 >> ano2;//le a segunda data
+            //--------------------------------------------------------------------------------------------------------------------------------------------------------
+            //----------------------------------exception se o usuario digitar a MAIOR data PRIMEIRO e a MENOR data DEPOIS--------------------------------------------
+            //--------------------------------------------------------------------------------------------------------------------------------------------------------
             for(int i = 0; i < funcionarios.size(); i++){
+                //verifica se as duas datas digitadas sao iguais, se sim, ele irá verificar apenas aquela data exata
+                if(ano1 == ano2 && mes1 == mes2 && dia1 == dia2){
+                    if(funcionarios[i]->getData().getAno() == ano1 && funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() == dia1){
+                        achou = true;
+                        //exibirRegistro do funcionario com o indicie atual (indicie i)
+                        exibirRegistro(i);
+                        break;
+                    }
+                }
                 //verifica se o funcionário tem seu ano dentro do intervalo de anos fornecidos
-                if(funcionarios[i]->getData().getAno() >= ano1 && funcionarios[i]->getData().getAno() <= ano2){  
+                else if(funcionarios[i]->getData().getAno() >= ano1 && funcionarios[i]->getData().getAno() <= ano2){  
                     //verifica se o ano do funcionário é o menor ano possivel e então verifica se o seu mês está dentro do intervalo válido
                     if(funcionarios[i]->getData().getAno() == ano1 && funcionarios[i]->getData().getMes() >= mes1 && funcionarios[i]->getData().getMes() <= 12){
-                        //se o seu mês for o menor possível, verifica se o seu dia está dentro do intervalo válido
-                        if(funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() >= dia1 && funcionarios[i]->getData().getDia() <= 30){
+                        //se o mes for maior que o menor possivel e menor que 12, entao o dia nao importa
+                        if(funcionarios[i]->getData().getMes() > mes1){
                             achou = true;
-                            //exibirListaFuncionarios filtrando pela informacao fornecida
+                            //exibirRegistro do funcionario com o indicie atual (indicie i)
+                            exibirRegistro(i);
+                        }
+                        //se o seu mês for o menor possível, verifica se o seu dia está dentro do intervalo válido
+                        else if(funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() >= dia1 && funcionarios[i]->getData().getDia() <= 30){
+                            achou = true;
+                            //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
                     }
                     //verifica se o ano do funcionário é o maior ano possivel e então verifica se o seu mês está dentro do intervalo válido
                     else if(funcionarios[i]->getData().getAno() == ano2 && funcionarios[i]->getData().getMes() <= mes2 && funcionarios[i]->getData().getMes() >= 1){
-                        //se o seu mês for o maior possível, verifica se o seu dia está dentro do intervalo válido
-                        if(funcionarios[i]->getData().getMes() == mes2 && funcionarios[i]->getData().getDia() <= dia2 && funcionarios[i]->getData().getDia() >= 1){
+                        //se o mes for menor que o maior possivel e maior que 1, entao o dia nao importa
+                        if(funcionarios[i]->getData().getMes() < mes2){
                             achou = true;
-                            //exibirListaFuncionarios filtrando pela informacao fornecida
+                            //exibirRegistro do funcionario com o indicie atual (indicie i)
+                            exibirRegistro(i);
+                        }
+                        //se o seu mês for o maior possível, verifica se o seu dia está dentro do intervalo válido
+                        else if(funcionarios[i]->getData().getMes() == mes2 && funcionarios[i]->getData().getDia() <= dia2 && funcionarios[i]->getData().getDia() >= 1){
+                            achou = true;
+                            //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
                     }
                     //se o ano do funcionário estiver dentro do intervalo, mas não for nem o menor e nem o maior possível, então certamente a data do funcionário está dentro do intervalo aceito
                     else if(funcionarios[i]->getData().getAno() > ano1 && funcionarios[i]->getData().getAno() < ano2){
                         achou = true;
-                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        //exibirRegistro do funcionario com o indicie atual (indicie i)
                         exibirRegistro(i);
                     }                                                                           
                 }
             }
             //caso nao tenha sido encontrado nenhum funcionário naquele intervalo de tempo, o programa informara o erro
+            //------------------------------------------------exception-----------------------------------------------
             if(!achou){
-                std::cout << "Nenhum funcionário foi contratado nesse intervalo de tempo." << std::endl;
+                std::cout << "\nNenhum funcionário foi contratado nesse intervalo de tempo.\n" << std::endl;
             }
             break;
         case 3:
@@ -514,7 +546,7 @@ void Empresa::buscarFuncionario(){
                     //se a cidade digitada pelo usuario for igual a cidade do funcionário do indice i, achou será true e o funcionário será exibido
                     if(funcionarios[i]->getEndereco().getCidade().find(cidade) != std::string::npos){
                         achou = true;
-                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        //exibirRegistro do funcionario com o indicie atual (indicie i)
                         exibirRegistro(i);
                     }
                 }
@@ -529,7 +561,7 @@ void Empresa::buscarFuncionario(){
                     //se o bairro digitada pelo usuario for igual ao bairro do funcionário do indice i, achou será true e o funcionário será exibido
                     if(funcionarios[i]->getEndereco().getBairro().find(bairro) != std::string::npos){
                         achou = true;
-                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        //exibirRegistro do funcionario com o indicie atual (indicie i)
                         exibirRegistro(i);
                     }
                 }
@@ -544,7 +576,7 @@ void Empresa::buscarFuncionario(){
                     //se a rua digitada pelo usuario for igual a rua do funcionário do indice i, achou será true e o funcionário será exibido
                     if(funcionarios[i]->getEndereco().getRua().find(rua) != std::string::npos){
                         achou = true;
-                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        //exibirRegistro do funcionario com o indicie atual (indicie i)
                         exibirRegistro(i);
                     }
                 }
@@ -559,7 +591,7 @@ void Empresa::buscarFuncionario(){
                     //se o CEP digitada pelo usuario for igual ao CEP do funcionário do indice i, achou será true e o funcionário será exibido
                     if(funcionarios[i]->getEndereco().getCEP() == CEP){
                         achou = true;
-                        //exibirListaFuncionarios filtrando pela informacao fornecida
+                        //exibirRegistro do funcionario com o indicie atual (indicie i)
                         exibirRegistro(i);
                     }
                 }
@@ -568,10 +600,12 @@ void Empresa::buscarFuncionario(){
             
             default:
                 //caso o tipo digitado nao exista
+                //------------------------------------------------exception-----------------------------------------------
                 std::cout << "Voce digitou um tipo inválido!" << std::endl;
                 break;
             }
             //caso nao tenha sido encontrado nenhum funcionário com aquele endereço, o programa informará o erro
+            //------------------------------------------------exception----------------------------------------------
             if(!achou){
                 std::cout << "Não existe nenhum funcionário com esse endereço na empresa." << std::endl;
             }
@@ -579,6 +613,7 @@ void Empresa::buscarFuncionario(){
         
         default:
             //caso o tipo digitado nao exista
+            //------------------------------------------------exception-----------------------------------------------
             std::cout << "Voce digitou um tipo inválido!" << std::endl;
             break;
     }
