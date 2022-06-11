@@ -23,6 +23,8 @@ public:
     void adicionarFuncionario();
     void aumentaTodosSalarios();
     void buscarFuncionario();
+    std::string padronizaTelefone(long long telefonlong);
+    bool validaData(int dia, int mes, int ano);
     
 
 protected:

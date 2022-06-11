@@ -26,16 +26,63 @@ int main()
         switch(fazer)
         {
         case 1:
-            emp.adicionarFuncionario();
+            try
+            {
+                emp.adicionarFuncionario();
+            }
+            catch(int x)
+            {
+                if(x==3)
+                {
+                    cout << "Codigo ja utilizado! ERROR " << x << "\n" << endl;
+                }
+                else if(x==4)
+                {
+                   cout << "Telefone ja utilizado! ERROR " << x << "\n" << endl; 
+                }
+                else if(x==5)
+                {
+                    cout << "Telefone invalido! ERROR " << x << "\n" << endl;
+                }
+                else if(x==6)
+                {
+                    cout << "Data invalida! ERROR " << x << "\n" << endl;
+                }
+                else if(x==7)
+                {
+                    cout << "Designação invalida! ERROR " << x << "\n" << endl;
+                }
+                else if(x==8)
+                {
+                    cout << "Salario invalido! ERROR " << x << "\n" << endl;
+                }
+            }
             break;
 
         case 2:
+            try
+            {
             emp.excluirFuncionario();
+            }
+            catch (int x)
+            {
+                cout << "Acesso Negado! ERROR " << x << endl;
+            }
             break;
         
         case 3:
+        try
+        {
             emp.editarFuncionario();
-            break;
+        }
+        catch(int x)
+        {
+            if (x==1)
+            {
+               std::cout << "Erro "<< x <<" Not Found!" << endl;
+            }
+        }
+        break;
 
         case 4:
             emp.exibirListaFuncionarios();
@@ -54,7 +101,17 @@ int main()
             break;
         
         case 8:
+        try
+        {
             emp.ImprimeFolhaSalarialFuncionario();
+        }
+        catch(int x)
+        {
+            if (x==1)
+            {
+               std::cout << "Erro "<< x <<" Not Found!" << endl;
+            }
+        }
             break;
 
         case 9:
@@ -62,11 +119,28 @@ int main()
             break;
 
         case 10:
+        try
+        {
             emp.buscarFuncionario();
+        }
+        catch(int x)
+        {
+            if(x==1)
+            {
+                std::cout << "Erro "<< x <<" Not Found!" << endl;
+            }
+            else if(x==6)
+            {
+                cout << "Data invalida! ERROR " << x << "\n" << endl;
+            }
+        }
             break;
 
-        default:
+        case 11:
             return 0;
+
+        default:
+            cout << "Opção invalida!" << endl;
         }
     }
     

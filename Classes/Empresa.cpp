@@ -37,12 +37,12 @@ void Empresa::editarFuncionario()
     std::cout << "Insira o codigo do funcionario a se alterar: ";
     std::cin >> codigo;
     
-    indice = getFuncionarioPorCodigo(codigo);
+        indice = getFuncionarioPorCodigo(codigo);
 
     std::cout << "Escolha o que alterar: \n[1] Codigo\n[2] Data de Ingresso"
     "\n[3] Nome\n[4] Endereco\n[5] Telefone\n[6] Designacao\n[7] Salario\n";
     std::cin >> opcao;
-    cin.ignore();
+    std::cin.ignore();
 
     switch(opcao)
     {
@@ -68,8 +68,9 @@ void Empresa::editarFuncionario()
             break;
         
         case 4: //alterar endereco
-            std::cout <<"Insira o novo CEP e numero da rua: ";
+            std::cout <<"Insira o novo CEP: ";
             getline(cin, novoCEP);
+            std::cout <<"Insira o novo numero: ";
             getline(cin, novoNumeroRua);
             funcionarios[indice]->setEndereco(novoCEP, novoNumeroRua);
             break;
@@ -91,6 +92,9 @@ void Empresa::editarFuncionario()
             std::cin >> novoFloat;
             funcionarios[indice]->setSalarioDiario(novoFloat);
             break;
+        
+        default: //opçãp invalida
+            cout << "Opção Invalida!" << endl;
     }
 }
 
@@ -121,10 +125,10 @@ void Empresa::excluirFuncionario()
     {
         if(designacao==4||designacao==3)
         {
-            //throw "acesso negado"; ----------------------------------------------------------------------
-            cout << "Acesso negado"; // Provisorio ----------------------------------------------------------
-        }else
-            {
+            throw 2;//acesso negado
+        }
+        else
+        {
             std::cout << "Voce tem certeza que quer apagar o funcionário " << funcionarios[indice]->getNome() 
             << "?\n [1] Sim, excluir\n[0] Nao, manter\n";
 
@@ -140,7 +144,8 @@ void Empresa::excluirFuncionario()
     
 }
 
-void Empresa::exibirRegistro(int indice){
+void Empresa::exibirRegistro(int indice)
+{
     std::cout << endl;
     string tipo[4]{"Operador", "Gerente", "Diretor", "Presidente"};
     std::cout << "Nome: " << funcionarios[indice]->getNome() << endl;
@@ -152,7 +157,6 @@ void Empresa::exibirRegistro(int indice){
     std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << endl;
     std::cout << "Endereco: " << funcionarios[indice]->getEndereco().getRua() << ", " << funcionarios[indice]->getEndereco().getNumero() << endl;
     std::cout << endl;
-    //Exibit o resto das coisas do endereço --------------------------------------------------------------------------------------
 }
 
 void Empresa::exibirListaFuncionarios()
@@ -167,7 +171,7 @@ void Empresa::exibirListaFuncionarios()
 
 int Empresa::getFuncionarioPorCodigo(long codigo)
 {
-    int indice;
+    int indice = -1;
 
     for(int i= 0; i < funcionarios.size(); i++)
     {
@@ -175,12 +179,15 @@ int Empresa::getFuncionarioPorCodigo(long codigo)
         if(funcionarios[i]->getCodigo() == codigo)
         {
             indice= i;
-            return indice;
+            break;
         }
     }
 
-    //Colocar exception nos metodos que usam caso recebam "0"--------------------------------------------
-    return 0;
+    if(indice==-1)
+    {
+        throw 1;//throw erro not found
+    } 
+    return indice;
 }
 
 int Empresa::getFuncionarioPorNome(std::string nome)
@@ -231,6 +238,10 @@ void Empresa::exibirListaFuncionariosTipo()
     int designacao;
     std::cout << "Insira a designacao dos funcionarios a serem exibidos \n[1] Operador\n[2] Gerente\n[3] Diretor\n[4] Presidente\n";
     std::cin >> designacao;
+    if(designacao<1 || designacao>4)
+    {
+        cout << "Designação Invalida!";
+    }
 
     for(int i = 0; i < funcionarios.size(); i++)
     {
@@ -327,20 +338,64 @@ void Empresa::ImprimeFolhaSalarialEmpresa() //imprime a folha salarial da empres
         //colocar exception --------------------------------------------------------------------------------
     }
 
+
 }
-void Empresa::adicionarFuncionario(){
+
+std::string Empresa::padronizaTelefone(long long telefonlong) // padroniza o telefone
+{
+    string telefone;
+    telefone = to_string(telefonlong);
+    telefone.insert(0, "(");
+    telefone.insert(3, ")");
+    telefone.insert(9, "-");
+    return telefone;
+}
+
+bool Empresa::validaData(int dia, int mes, int ano)
+{
+    int diasmes[12]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if(ano<2000 || ano>2022)
+    {
+        return false;
+    }
+    if(mes<1 || mes>12)
+    {
+        return false;
+    }
+    if(dia>diasmes[mes-1] || dia<1)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+void Empresa::adicionarFuncionario()
+{
     long codigo;
     std::string nome;
     std::string cep;
     std::string numero;
     std::string telefone;
+    long long telefonlong;
     int dia, mes, ano;
     int tipo;
     float salario;
+    bool datavalida;
     
     cout << "Insira o código do funcionario" << endl;
     cin >> codigo;
     cin.ignore();
+    
+    for (int i = 0; i < funcionarios.size(); i++)
+    {
+        if(funcionarios[i]->getCodigo()==codigo)
+        {
+            throw 3;
+        }
+    }
     
     cout << "Insira o nome do funcionario:" << endl;
     getline(cin, nome);
@@ -348,20 +403,48 @@ void Empresa::adicionarFuncionario(){
     cout << "Insira o CEP:" << endl;
     getline(cin, cep);
 
-    cout << "Insira o número da rua:" << endl;
+    cout << "Insira o número:" << endl;
     getline(cin, numero);
 
-    cout << "Insira o telefone:" << endl;
-    getline(cin, telefone);
+    cout << "Insira o telefone: (somente numeros, com ddd)" << endl;
+    cin >> telefonlong; // pega o telefone como long long para evitar escrita errada
+    cin.ignore();
+    if(telefonlong<10000000000 || telefonlong>99999999999) // verifica se o telefone tem 11 digitos
+    {
+        throw 5; // erro para telefone invalido
+    }
+    telefone = padronizaTelefone(telefonlong); // coloca o (XX) e o - no telefone
+
+    for (int i = 0; i < funcionarios.size(); i++)
+    {
+        if(funcionarios[i]->getTelefone()==telefone)
+        {
+            throw 4; // erro para telefone ja cadastrado
+        }
+    }
 
     cout << "Insira a data de entrada (DD MM AAAA):" << endl;
     cin >> dia >> mes >> ano;
 
+    datavalida = validaData(dia, mes, ano);
+        if(datavalida==false)
+        {
+            throw 6; // erro data invalida
+        }
+
     cout << "Insira a designacao do funcionario\n[1] Operador\n[2] Gerente\n[3] Diretor\n[4] Presidente\n" << endl;
     cin >> tipo;
+    if(tipo>4 || tipo<1)
+    {
+        throw 7; // erro designacao invalida
+    }
 
     cout << "Insira o salario diário:" << endl;
     cin >> salario;
+    if(salario<10)
+    {
+        throw 8; // erro salario invalido
+    }
 
     Data data(dia, mes, ano);
     Endereco endereco(cep, numero);
@@ -383,10 +466,6 @@ void Empresa::adicionarFuncionario(){
     
     case 4:
          funcionario = new Presidente(codigo, nome, endereco, telefone, data, salario);
-        break;
-    
-    default:
-        //incerir exeption ------------------------------------------------------------------------
         break;
     }
 
@@ -449,18 +528,20 @@ void Empresa::buscarFuncionario(){
             std::cout << "Digite um nome pelo qual você deseja procurar um funcionário" << std::endl;
             std::getline(std::cin, nome); // le o que o usuario deseja usar na busca
             //for que percorre todos os elementos do vector
-            for(int i = 0; i < funcionarios.size(); i++){
+            for(int i = 0; i < funcionarios.size(); i++)
+            {
                 //se o nome digitado pelo usuario estiver presente no nome completo do funcionário do indice i, achou será true e o funcionário será exibido
-                if(funcionarios[i]->getNome().find(nome) != std::string::npos){
+                if(funcionarios[i]->getNome().find(nome) != std::string::npos)
+                {
                     achou = true;
                     //exibirRegistro do funcionario com o indicie atual (indicie i)
                     exibirRegistro(i);
                 }
             }
             //caso nao tenha sido encontrado nenhum funcionário com aquele nome (achou continua como false), o programa informará o erro
-            //------------------------------------------------exception-----------------------------------------------
-            if(!achou){
-                std::cout << "Não existe nenhum funcionário com esse nome na empresa." << std::endl;
+            if(!achou)
+            {
+                throw 1;
             }
             break;
         case 2:
@@ -473,10 +554,16 @@ void Empresa::buscarFuncionario(){
             //--------------------------------------------------------------------------------------------------------------------------------------------------------
             //----------------------------------exception se o usuario digitar a MAIOR data PRIMEIRO e a MENOR data DEPOIS--------------------------------------------
             //--------------------------------------------------------------------------------------------------------------------------------------------------------
+            if(ano1>ano2 || (ano1==ano2 && mes1>mes2) || (ano1>=ano2 && mes1==mes2 && dia1>dia2))
+            {
+                throw 6; // data invalida
+            }
             for(int i = 0; i < funcionarios.size(); i++){
                 //verifica se as duas datas digitadas sao iguais, se sim, ele irá verificar apenas aquela data exata
-                if(ano1 == ano2 && mes1 == mes2 && dia1 == dia2){
-                    if(funcionarios[i]->getData().getAno() == ano1 && funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() == dia1){
+                if(ano1 == ano2 && mes1 == mes2 && dia1 == dia2)
+                {
+                    if(funcionarios[i]->getData().getAno() == ano1 && funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() == dia1)
+                    {
                         achou = true;
                         //exibirRegistro do funcionario com o indicie atual (indicie i)
                         exibirRegistro(i);
@@ -484,39 +571,47 @@ void Empresa::buscarFuncionario(){
                     }
                 }
                 //verifica se o funcionário tem seu ano dentro do intervalo de anos fornecidos
-                else if(funcionarios[i]->getData().getAno() >= ano1 && funcionarios[i]->getData().getAno() <= ano2){  
+                else if(funcionarios[i]->getData().getAno() >= ano1 && funcionarios[i]->getData().getAno() <= ano2)
+                {  
                     //verifica se o ano do funcionário é o menor ano possivel e então verifica se o seu mês está dentro do intervalo válido
-                    if(funcionarios[i]->getData().getAno() == ano1 && funcionarios[i]->getData().getMes() >= mes1 && funcionarios[i]->getData().getMes() <= 12){
+                    if(funcionarios[i]->getData().getAno() == ano1 && funcionarios[i]->getData().getMes() >= mes1 && funcionarios[i]->getData().getMes() <= 12)
+                    {
                         //se o mes for maior que o menor possivel e menor que 12, entao o dia nao importa
-                        if(funcionarios[i]->getData().getMes() > mes1){
+                        if(funcionarios[i]->getData().getMes() > mes1)
+                        {
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
                         //se o seu mês for o menor possível, verifica se o seu dia está dentro do intervalo válido
-                        else if(funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() >= dia1 && funcionarios[i]->getData().getDia() <= 30){
+                        else if(funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() >= dia1 && funcionarios[i]->getData().getDia() <= 30)
+                        {
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
                     }
                     //verifica se o ano do funcionário é o maior ano possivel e então verifica se o seu mês está dentro do intervalo válido
-                    else if(funcionarios[i]->getData().getAno() == ano2 && funcionarios[i]->getData().getMes() <= mes2 && funcionarios[i]->getData().getMes() >= 1){
+                    else if(funcionarios[i]->getData().getAno() == ano2 && funcionarios[i]->getData().getMes() <= mes2 && funcionarios[i]->getData().getMes() >= 1)
+                    {
                         //se o mes for menor que o maior possivel e maior que 1, entao o dia nao importa
-                        if(funcionarios[i]->getData().getMes() < mes2){
+                        if(funcionarios[i]->getData().getMes() < mes2)
+                        {
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
                         //se o seu mês for o maior possível, verifica se o seu dia está dentro do intervalo válido
-                        else if(funcionarios[i]->getData().getMes() == mes2 && funcionarios[i]->getData().getDia() <= dia2 && funcionarios[i]->getData().getDia() >= 1){
+                        else if(funcionarios[i]->getData().getMes() == mes2 && funcionarios[i]->getData().getDia() <= dia2 && funcionarios[i]->getData().getDia() >= 1)
+                        {
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
                     }
                     //se o ano do funcionário estiver dentro do intervalo, mas não for nem o menor e nem o maior possível, então certamente a data do funcionário está dentro do intervalo aceito
-                    else if(funcionarios[i]->getData().getAno() > ano1 && funcionarios[i]->getData().getAno() < ano2){
+                    else if(funcionarios[i]->getData().getAno() > ano1 && funcionarios[i]->getData().getAno() < ano2)
+                    {
                         achou = true;
                         //exibirRegistro do funcionario com o indicie atual (indicie i)
                         exibirRegistro(i);
@@ -524,9 +619,9 @@ void Empresa::buscarFuncionario(){
                 }
             }
             //caso nao tenha sido encontrado nenhum funcionário naquele intervalo de tempo, o programa informara o erro
-            //------------------------------------------------exception-----------------------------------------------
-            if(!achou){
-                std::cout << "\nNenhum funcionário foi contratado nesse intervalo de tempo.\n" << std::endl;
+            if(!achou)
+            {
+                throw 1;
             }
             break;
         case 3:
@@ -536,85 +631,96 @@ void Empresa::buscarFuncionario(){
             std::cin.ignore();
             switch (tipoEnd)
             {
-            case 1:
-            {
-                std::string cidade;
-                std::cout << "Digite a cidade que você deseja fazer a busca" << std::endl;
-                getline(std::cin, cidade);
-                //for que percorre todos os elementos do vector
-                for(int i = 0; i < funcionarios.size(); i++){
-                    //se a cidade digitada pelo usuario for igual a cidade do funcionário do indice i, achou será true e o funcionário será exibido
-                    if(funcionarios[i]->getEndereco().getCidade().find(cidade) != std::string::npos){
-                        achou = true;
-                        //exibirRegistro do funcionario com o indicie atual (indicie i)
-                        exibirRegistro(i);
+                case 1:
+                {
+                    std::string cidade;
+                    std::cout << "Digite a cidade que você deseja fazer a busca" << std::endl;
+                    getline(std::cin, cidade);
+                    //for que percorre todos os elementos do vector
+                    for(int i = 0; i < funcionarios.size(); i++)
+                    {
+                        //se a cidade digitada pelo usuario for igual a cidade do funcionário do indice i, achou será true e o funcionário será exibido
+                        if(funcionarios[i]->getEndereco().getCidade().find(cidade) != std::string::npos)
+                        {
+                            achou = true;
+                            //exibirRegistro do funcionario com o indicie atual (indicie i)
+                            exibirRegistro(i);
+                        }
                     }
+                    break;
                 }
-                break;
-            }
-            case 2:
-            {
-                std::string bairro;
-                std::cout << "Digite o bairro que você deseja fazer a busca" << std::endl;
-                getline(std::cin, bairro);
-                for(int i = 0; i < funcionarios.size(); i++){
-                    //se o bairro digitada pelo usuario for igual ao bairro do funcionário do indice i, achou será true e o funcionário será exibido
-                    if(funcionarios[i]->getEndereco().getBairro().find(bairro) != std::string::npos){
-                        achou = true;
-                        //exibirRegistro do funcionario com o indicie atual (indicie i)
-                        exibirRegistro(i);
+                case 2:
+                {
+                    std::string bairro;
+                    std::cout << "Digite o bairro que você deseja fazer a busca" << std::endl;
+                    getline(std::cin, bairro);
+                    for(int i = 0; i < funcionarios.size(); i++)
+                    {
+                        //se o bairro digitada pelo usuario for igual ao bairro do funcionário do indice i, achou será true e o funcionário será exibido
+                        if(funcionarios[i]->getEndereco().getBairro().find(bairro) != std::string::npos)
+                        {
+                            achou = true;
+                            //exibirRegistro do funcionario com o indicie atual (indicie i)
+                            exibirRegistro(i);
+                        }
                     }
+                    break;
                 }
-                break;
-            }
-            case 3:
-            {
-                std::string rua;
-                std::cout << "Digite a rua que você deseja fazer a busca" << std::endl;
-                getline(std::cin, rua);
-                for(int i = 0; i < funcionarios.size(); i++){
-                    //se a rua digitada pelo usuario for igual a rua do funcionário do indice i, achou será true e o funcionário será exibido
-                    if(funcionarios[i]->getEndereco().getRua().find(rua) != std::string::npos){
-                        achou = true;
-                        //exibirRegistro do funcionario com o indicie atual (indicie i)
-                        exibirRegistro(i);
+                case 3:
+                {
+                    std::string rua;
+                    std::cout << "Digite a rua que você deseja fazer a busca" << std::endl;
+                    getline(std::cin, rua);
+                    for(int i = 0; i < funcionarios.size(); i++)
+                    {
+                        //se a rua digitada pelo usuario for igual a rua do funcionário do indice i, achou será true e o funcionário será exibido
+                        if(funcionarios[i]->getEndereco().getRua().find(rua) != std::string::npos)
+                        {
+                            achou = true;
+                            //exibirRegistro do funcionario com o indicie atual (indicie i)
+                            exibirRegistro(i);
+                        }
                     }
+                    break;
                 }
-                break;
-            }
-            case 4:
-            {
-                std::string CEP;
-                std::cout << "Digite o CEP que você deseja fazer a busca" << std::endl;
-                getline(std::cin, CEP);
-                for(int i = 0; i < funcionarios.size(); i++){
-                    //se o CEP digitada pelo usuario for igual ao CEP do funcionário do indice i, achou será true e o funcionário será exibido
-                    if(funcionarios[i]->getEndereco().getCEP() == CEP){
-                        achou = true;
-                        //exibirRegistro do funcionario com o indicie atual (indicie i)
-                        exibirRegistro(i);
+                case 4:
+                {
+                    std::string CEP;
+                    std::cout << "Digite o CEP que você deseja fazer a busca" << std::endl;
+                    getline(std::cin, CEP);
+                    for(int i = 0; i < funcionarios.size(); i++){
+                        //se o CEP digitada pelo usuario for igual ao CEP do funcionário do indice i, achou será true e o funcionário será exibido
+                        if(funcionarios[i]->getEndereco().getCEP() == CEP){
+                            achou = true;
+                            //exibirRegistro do funcionario com o indicie atual (indicie i)
+                            exibirRegistro(i);
+                        }
                     }
+                    break;
                 }
-                break;
-            }
-            
-            default:
-                //caso o tipo digitado nao exista
-                //------------------------------------------------exception-----------------------------------------------
-                std::cout << "Voce digitou um tipo inválido!" << std::endl;
-                break;
+                
+                default:
+                {
+                    //caso o tipo digitado nao exista
+                    std::cout << "Voce digitou um tipo inválido!" << std::endl;
+                    break;
+                }            
             }
             //caso nao tenha sido encontrado nenhum funcionário com aquele endereço, o programa informará o erro
             //------------------------------------------------exception----------------------------------------------
-            if(!achou){
-                std::cout << "Não existe nenhum funcionário com esse endereço na empresa." << std::endl;
+            if(!achou)
+            {
+                throw 1;
             }
             break;
         
         default:
+        {
             //caso o tipo digitado nao exista
-            //------------------------------------------------exception-----------------------------------------------
             std::cout << "Voce digitou um tipo inválido!" << std::endl;
             break;
+        }
+
+
     }
 }
