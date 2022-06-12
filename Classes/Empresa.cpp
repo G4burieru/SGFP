@@ -151,8 +151,30 @@ void Empresa::exibirRegistro(int indice)
     std::cout << "Nome: " << funcionarios[indice]->getNome() << endl;
     std::cout << "Codigo: " << funcionarios[indice]->getCodigo() << endl;
     std::cout << "Designação: " << tipo[funcionarios[indice]->getDesignacao()-1] << endl;
-    std::cout << "Data de Entrada: " << funcionarios[indice]->getData().getDia() << "/" << 
-    funcionarios[indice]->getData().getMes() << "/" << funcionarios[indice]->getData().getAno() << endl;
+
+
+    std::cout << "Data de Entrada: ";
+    if(funcionarios[indice]->getData().getDia()<10)
+    {
+        cout << "0" << funcionarios[indice]->getData().getDia();
+    }
+    else 
+    {
+        cout << funcionarios[indice]->getData().getDia();
+    }
+    cout << "/";
+    if(funcionarios[indice]->getData().getMes()<10)
+    {
+        cout << "0" << funcionarios[indice]->getData().getMes();
+    }
+    else 
+    {
+        cout << funcionarios[indice]->getData().getMes();
+    }
+    cout << "/" << funcionarios[indice]->getData().getAno() << endl;
+
+
+
     std::cout << "Telefone: " << funcionarios[indice]->getTelefone() << endl;
     std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << endl;
     std::cout << "Endereco: " << funcionarios[indice]->getEndereco().getRua() << ", " << funcionarios[indice]->getEndereco().getNumero() << endl;
@@ -192,7 +214,7 @@ int Empresa::getFuncionarioPorCodigo(long codigo)
 
 int Empresa::getFuncionarioPorNome(std::string nome)
 {
-    int indice;
+    int indice = -1;
 
     for(int i= 0; i < funcionarios.size(); i++)
     {
@@ -204,8 +226,11 @@ int Empresa::getFuncionarioPorNome(std::string nome)
         }
     }
     
-    //Colocar exception nos metodos que usam caso recebam "0"--------------------------------------------
-    return 0;
+    if(indice==-1)
+    {
+        throw 1; //erro not found
+    }
+    return -1; // retorno invalido
 }
 
 void Empresa::calcularFolhaSalarial()
@@ -263,7 +288,8 @@ void Empresa::ImprimeFolhaSalarialFuncionario() //imprime a folha salarial de um
     cin >> opcao;
     cin.ignore();
 
-    if(opcao == 1){
+    if(opcao == 1)
+    {
         long codigo;
 
         std::cout << "Digite o codigo do funcionario:\n";
@@ -272,17 +298,25 @@ void Empresa::ImprimeFolhaSalarialFuncionario() //imprime a folha salarial de um
         indice = getFuncionarioPorCodigo(codigo);
     }
 
-    if(opcao == 2){
+    if(opcao == 2)
+    {
         std::string nome;
 
         std::cout << "Digite o nome completo do funcionario:\n";
         getline(cin, nome);
 
+        try
+        {
         indice = getFuncionarioPorNome(nome);
-    }else{
-        //colocar exception --------------------------------------------------------------------------------
+        }
+        catch(int x)
+        {
+            if(x==1)
+            {
+                std::cout << "Erro "<< x <<" Not Found!\n" << endl;
+            }
+        }
     }
-
     std::cout << "Voce deseja imprimir a folha de qual mes?\n";
     cin >> mes;
 
@@ -291,8 +325,7 @@ void Empresa::ImprimeFolhaSalarialFuncionario() //imprime a folha salarial de um
         funcionarios[indice]->imprimirFolhaMes(mes);
     }else
     {
-        std::cout << "Folha desse mes nao calculada";
-        //colocar exception--------------------------------------------------------------------------------
+        std::cout << "Folha desse mes nao calculada\n";
     }
 
 
@@ -335,7 +368,7 @@ void Empresa::ImprimeFolhaSalarialEmpresa() //imprime a folha salarial da empres
         std::cout << "----------------------------------------------\n";       
         
     }else{
-        //colocar exception --------------------------------------------------------------------------------
+        cout << "Opção Invalida!" << endl;
     }
 
 
@@ -551,14 +584,14 @@ void Empresa::buscarFuncionario(){
             std::cin >> dia1 >> mes1 >> ano1;//le a primeira data
             std::cout << "Digite a segunda data do intervalo (maior data) no padrao (DD MM AAAA)" << std::endl;
             std::cin >> dia2 >> mes2 >> ano2;//le a segunda data
-            //--------------------------------------------------------------------------------------------------------------------------------------------------------
-            //----------------------------------exception se o usuario digitar a MAIOR data PRIMEIRO e a MENOR data DEPOIS--------------------------------------------
-            //--------------------------------------------------------------------------------------------------------------------------------------------------------
+            
             if(ano1>ano2 || (ano1==ano2 && mes1>mes2) || (ano1>=ano2 && mes1==mes2 && dia1>dia2))
             {
                 throw 6; // data invalida
             }
-            for(int i = 0; i < funcionarios.size(); i++){
+
+            for(int i = 0; i < funcionarios.size(); i++)
+            {
                 //verifica se as duas datas digitadas sao iguais, se sim, ele irá verificar apenas aquela data exata
                 if(ano1 == ano2 && mes1 == mes2 && dia1 == dia2)
                 {
@@ -707,7 +740,6 @@ void Empresa::buscarFuncionario(){
                 }            
             }
             //caso nao tenha sido encontrado nenhum funcionário com aquele endereço, o programa informará o erro
-            //------------------------------------------------exception----------------------------------------------
             if(!achou)
             {
                 throw 1;
