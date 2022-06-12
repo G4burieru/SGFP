@@ -151,8 +151,30 @@ void Empresa::exibirRegistro(int indice)
     std::cout << "Nome: " << funcionarios[indice]->getNome() << endl;
     std::cout << "Codigo: " << funcionarios[indice]->getCodigo() << endl;
     std::cout << "Designação: " << tipo[funcionarios[indice]->getDesignacao()-1] << endl;
-    std::cout << "Data de Entrada: " << funcionarios[indice]->getData().getDia() << "/" << 
-    funcionarios[indice]->getData().getMes() << "/" << funcionarios[indice]->getData().getAno() << endl;
+
+
+    std::cout << "Data de Entrada: ";
+    if(funcionarios[indice]->getData().getDia()<10)
+    {
+        cout << "0" << funcionarios[indice]->getData().getDia();
+    }
+    else 
+    {
+        cout << funcionarios[indice]->getData().getDia();
+    }
+    cout << "/";
+    if(funcionarios[indice]->getData().getMes()<10)
+    {
+        cout << "0" << funcionarios[indice]->getData().getMes();
+    }
+    else 
+    {
+        cout << funcionarios[indice]->getData().getMes();
+    }
+    cout << "/" << funcionarios[indice]->getData().getAno() << endl;
+
+
+
     std::cout << "Telefone: " << funcionarios[indice]->getTelefone() << endl;
     std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << endl;
     std::cout << "Endereco: " << funcionarios[indice]->getEndereco().getRua() << ", " << funcionarios[indice]->getEndereco().getNumero() << endl;
@@ -204,11 +226,11 @@ int Empresa::getFuncionarioPorNome(std::string nome)
         }
     }
     
-    //Colocar exception nos metodos que usam caso recebam "0"--------------------------------------------
     if(indice==-1)
     {
         throw 1; //erro not found
     }
+    return -1; // retorno invalido
 }
 
 void Empresa::calcularFolhaSalarial()
