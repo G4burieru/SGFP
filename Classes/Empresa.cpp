@@ -30,7 +30,7 @@ void Empresa::editarFuncionario()
     int indice, codigo, opcao, novoInt, novoDia, novoMes, novoAno;
     long novoLong;
     string novoString;
-    string novoCEP, novoNumeroRua;
+    string novoCEP, novoNumeroCasa;
     float novoFloat;
     Data novaData(0, 0, 0);
 
@@ -39,8 +39,8 @@ void Empresa::editarFuncionario()
     
     indice = getFuncionarioPorCodigo(codigo);
 
-    std::cout << "Escolha o que alterar: \n[1] Codigo\n[2] Data de Ingresso"
-    "\n[3] Nome\n[4] Endereco\n[5] Telefone\n[6] Designacao\n[7] Salario\n";
+    std::cout << "Escolha o que alterar: \n[01] Codigo\n[02] Data de Ingresso"
+    "\n[03] Nome\n[04] Endereco\n[05] Telefone\n[06] Designacao\n[07] Salario\n";
     std::cin >> opcao;
     cin.ignore();
 
@@ -68,10 +68,11 @@ void Empresa::editarFuncionario()
             break;
         
         case 4: //alterar endereco
-            std::cout <<"Insira o novo CEP e numero da rua: ";
+            std::cout <<"Insira o novo CEP: ";
             getline(cin, novoCEP);
-            getline(cin, novoNumeroRua);
-            funcionarios[indice]->setEndereco(novoCEP, novoNumeroRua);
+            std::cout <<"Insira o novo numero da casa: ";
+            getline(cin, novoNumeroCasa);
+            funcionarios[indice]->setEndereco(novoCEP, novoNumeroCasa);
             break;
 
         case 5: //alterar telefone
@@ -81,7 +82,7 @@ void Empresa::editarFuncionario()
             break;
 
         case 6: //alterar designacao
-            std::cout << "Insira a nova designacao \n[1] Operador\n[2] Gerente\n[3] Diretor\n[4] Presidente\n";
+            std::cout << "Insira a nova designacao \n[01] Operador\n[02] Gerente\n[03] Diretor\n[04] Presidente\n";
             std::cin >> novoInt;
             funcionarios[indice]->setDesignacao(novoInt);
             break;
@@ -126,7 +127,7 @@ void Empresa::excluirFuncionario()
         }else
             {
             std::cout << "Voce tem certeza que quer apagar o funcionário " << funcionarios[indice]->getNome() 
-            << "?\n [1] Sim, excluir\n[0] Nao, manter\n";
+            << "?\n [01] Sim, excluir\n[00] Nao, manter\n";
 
             std::cin >> confirmacao;
             if(confirmacao==true)
@@ -152,6 +153,8 @@ void Empresa::exibirRegistro(int indice){
     std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << endl;
     std::cout << "Endereco: " << funcionarios[indice]->getEndereco().getRua() << ", " << funcionarios[indice]->getEndereco().getNumero() << endl;
     std::cout << endl;
+    //salvar o funcionario no arquivo
+
     //Exibit o resto das coisas do endereço --------------------------------------------------------------------------------------
 }
 
@@ -229,7 +232,7 @@ void Empresa::calcularFolhaSalarial()
 void Empresa::exibirListaFuncionariosTipo()
 {
     int designacao;
-    std::cout << "Insira a designacao dos funcionarios a serem exibidos \n[1] Operador\n[2] Gerente\n[3] Diretor\n[4] Presidente\n";
+    std::cout << "Insira a designacao dos funcionarios a serem exibidos \n[01] Operador\n[02] Gerente\n[03] Diretor\n[04] Presidente\n";
     std::cin >> designacao;
 
     for(int i = 0; i < funcionarios.size(); i++)
@@ -248,7 +251,7 @@ void Empresa::ImprimeFolhaSalarialFuncionario() //imprime a folha salarial de um
 {
     int opcao, indice, mes;
 
-    std::cout << "Deseja imprimir por nome completo ou por codigo?\n[1] Codigo \n[2] Nome Completo\n";
+    std::cout << "Deseja imprimir por nome completo ou por codigo?\n[01] Codigo \n[02] Nome Completo\n";
     cin >> opcao;
     cin.ignore();
 
@@ -290,7 +293,7 @@ void Empresa::ImprimeFolhaSalarialEmpresa() //imprime a folha salarial da empres
 {
     int opcao;
 
-    std::cout << "Deseja imprimir uma folha mensal ou a folha anual?\n[1] Mensal \n[2] Anual\n";
+    std::cout << "Deseja imprimir uma folha mensal ou a folha anual?\n[01] Mensal \n[02] Anual\n";
     std::cin >> opcao;
 
     if(opcao == 1){
@@ -329,6 +332,8 @@ void Empresa::ImprimeFolhaSalarialEmpresa() //imprime a folha salarial da empres
 
 }
 void Empresa::adicionarFuncionario(){
+    lerArquivo();
+/*
     long codigo;
     std::string nome;
     std::string cep;
@@ -338,7 +343,7 @@ void Empresa::adicionarFuncionario(){
     int tipo;
     float salario;
     
-    cout << "Insira o código do funcionario" << endl;
+    cout << "Insira o código do funcionario:" << endl;
     cin >> codigo;
     cin.ignore();
     
@@ -348,7 +353,7 @@ void Empresa::adicionarFuncionario(){
     cout << "Insira o CEP:" << endl;
     getline(cin, cep);
 
-    cout << "Insira o número da rua:" << endl;
+    cout << "Insira o número da casa:" << endl;
     getline(cin, numero);
 
     cout << "Insira o telefone:" << endl;
@@ -357,7 +362,7 @@ void Empresa::adicionarFuncionario(){
     cout << "Insira a data de entrada (DD MM AAAA):" << endl;
     cin >> dia >> mes >> ano;
 
-    cout << "Insira a designacao do funcionario\n[1] Operador\n[2] Gerente\n[3] Diretor\n[4] Presidente\n" << endl;
+    cout << "Insira a designacao do funcionario\n[01] Operador\n[02] Gerente\n[03] Diretor\n[04] Presidente" << endl;
     cin >> tipo;
 
     cout << "Insira o salario diário:" << endl;
@@ -391,6 +396,7 @@ void Empresa::adicionarFuncionario(){
     }
 
     funcionarios.push_back(funcionario);
+    */
 }
 
 void Empresa::aumentaTodosSalarios(){
@@ -431,13 +437,13 @@ void Empresa::setDiasEHorasAleatorios(int mes, int indice)
 
 }
 
-void Empresa::buscarFuncionario(){
-
+void Empresa::buscarFuncionario()
+{
     bool achou = false; //vai informar se um funcionário foi encontrado
     int tipo, tipoEnd; //tipo vai informar qual elemento será usado para fazer a busca do funcionário e tipoEnd vai informar qual elemento será usado para fazer a busca do endereço
     std::string nome, endereco; //nome vai armazenar o nome digitado pelo usuario e Endereço vai armazenar o Endereço digitado pelo usuario. ambos seram usados para fazer uma busca de funcionário
 
-    std::cout << "Qual informação você deseja usar para buscar um funcionário?\n[1] Nome\n[2] Data de ingresso\n[3] Endereço" << std::endl;
+    std::cout << "Qual informação você deseja usar para buscar um funcionário?\n[01] Nome\n[02] Data de ingresso\n[03] Endereço" << std::endl;
     std::cin >> tipo;
     
     //switch case que vai funcionar de acordo com o que o usuario escolheu
@@ -531,7 +537,7 @@ void Empresa::buscarFuncionario(){
             break;
         case 3:
         //caso o elemento escolhido for 3 (Endereço), será perguntado ao usuário se ele deseja fazer a busca por [1] Cidade, [2] Bairro, [3] Rua ou [4] CEP
-            std::cout << "Qual elementos você deseja usar para fazer a busca?\n[1] Cidade\n[2] Bairro\n[3] Rua\n[4] CEP" << std::endl;
+            std::cout << "Qual elementos você deseja usar para fazer a busca?\n[01] Cidade\n[02] Bairro\n[03] Rua\n[04] CEP" << std::endl;
             std::cin >> tipoEnd;
             std::cin.ignore();
             switch (tipoEnd)
@@ -587,6 +593,9 @@ void Empresa::buscarFuncionario(){
                 std::string CEP;
                 std::cout << "Digite o CEP que você deseja fazer a busca" << std::endl;
                 getline(std::cin, CEP);
+                if(CEP.size() == 9){
+                    CEP.replace(5,1,"");
+                }
                 for(int i = 0; i < funcionarios.size(); i++){
                     //se o CEP digitada pelo usuario for igual ao CEP do funcionário do indice i, achou será true e o funcionário será exibido
                     if(funcionarios[i]->getEndereco().getCEP() == CEP){
@@ -616,5 +625,118 @@ void Empresa::buscarFuncionario(){
             //------------------------------------------------exception-----------------------------------------------
             std::cout << "Voce digitou um tipo inválido!" << std::endl;
             break;
+    }
+}
+void Empresa::salvarArquivo(){
+    std::fstream fs;
+    fs.open("ListaFuncionarios.txt", std::fstream::out);
+    if(!fs.is_open()){
+        std::cout << "Erro ao abrir arquivo para escrita\n";
+        return;
+    }
+    for(int i = 0; i < funcionarios.size(); i++){
+        fs << "-----" << std::endl;
+        fs << funcionarios[i]->getCodigo() << std::endl;
+        fs << funcionarios[i]->getNome() << std::endl;
+        fs << funcionarios[i]->getEndereco().getCEP() << std::endl;
+        fs << funcionarios[i]->getEndereco().getNumero() << std::endl;
+        fs << funcionarios[i]->getTelefone() << std::endl;
+        fs << funcionarios[i]->getData().getDia() << std::endl;
+        fs << funcionarios[i]->getData().getMes() << std::endl;
+        fs << funcionarios[i]->getData().getAno() << std::endl;
+        fs << funcionarios[i]->getDesignacao() << std::endl;
+        fs << funcionarios[i]->getSalarioDiario() << std::endl;
+    }
+    fs.close();
+}
+void Empresa::lerArquivo(){
+                int i = 0;
+    int quantTem = 0; // quantos funcionarios tem na lista
+    int quantLeu = 0; // quantos funcionarios ja leu da lista
+    fstream fs;
+    //essa primeira parte vai ler o arquivo por completo e contar quantos funcionarios tem nele
+    {
+        fs.open("ListaFuncionarios.txt", fstream::in);
+        if(!fs.is_open()){
+            cout << "Erro ao abrir arquivo para leitura\n";
+        }
+        while(1){
+            if(fs.eof()){
+                break;
+            }
+            std::string linha;
+            getline(fs, linha);
+            if(linha == "-----"){
+                quantTem++;
+            }
+        }
+        fs.close();
+    }
+    //essa segunda parte vai ler o arquivo ja sabendo quantos funcionarios tem e parar exatamente onde deve
+    {
+        fs.open("ListaFuncionarios.txt", fstream::in);
+        if(!fs.is_open()){
+            cout << "Erro ao abrir arquivo para leitura\n";
+        }
+        while(1){
+            if(quantLeu == quantTem){
+                break;
+            }
+            cout << "Entrei no while " << i+1 << " vezes\n";
+            i++;
+            std::string linha;
+            long codigo;
+            std::string nome;
+            std::string cep;
+            std::string numero;
+            std::string telefone;
+            int dia, mes, ano;
+            int tipo;
+            float salario;
+            
+            getline(fs, linha);
+            quantLeu++;
+
+            fs >> codigo;
+            fs.ignore();
+            getline(fs, nome);
+            getline(fs, cep);
+            getline(fs, numero);
+            getline(fs, telefone);
+            fs >> dia >> mes >> ano;
+            fs >> tipo;
+            fs >> salario;
+            fs.ignore();
+
+            Data data(dia, mes, ano);
+            Endereco endereco(cep, numero);
+            Funcionario *funcionario;
+
+            switch (tipo)
+            {
+            case 1:
+                funcionario = new Operador(codigo, nome, endereco, telefone, data, salario);
+                break;
+            
+            case 2:
+                funcionario = new Gerente(codigo, nome, endereco, telefone, data, salario);
+                break;
+            
+            case 3:
+                funcionario = new Diretor(codigo, nome, endereco, telefone, data, salario);
+                break;
+            
+            case 4:
+                funcionario = new Presidente(codigo, nome, endereco, telefone, data, salario);
+                break;
+            
+            default:
+                //incerir exeption ------------------------------------------------------------------------
+                break;
+            }
+
+            funcionarios.push_back(funcionario);
+        }
+        fs.close();
     }
 }

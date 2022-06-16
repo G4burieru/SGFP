@@ -19,7 +19,9 @@ Funcionario::~Funcionario()
 }
 
 void Funcionario::aumentoSalarial(){
-
+    /*----------------------------------------------------------------------------------------------------------
+    ---calcular as folhas dos meses anteriores antes de dar o aumento (caso ela ainda n tenha sido calculada)---
+    ----------------------------------------------------------------------------------------------------------*/
 }
 
 long Funcionario::getCodigo()

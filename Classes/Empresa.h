@@ -23,6 +23,8 @@ public:
     void adicionarFuncionario();
     void aumentaTodosSalarios();
     void buscarFuncionario();
+    void salvarArquivo();
+    void lerArquivo();
     
 
 protected:

@@ -19,7 +19,11 @@ int main()
     while(1)
     {
         
-        cout << "O que deseja fazer agora?\n[1] Adicionar Funcionario\n[2] excluir funcionario\n[3] editar funcionario\n[4] exibir lista de funcionarios\n[5] exibir lista de um tipo específica de funcionario \n[6] Calcular folha salarial \n[7] Exibir folha da empresa \n[8] exibir folha de um funcionario expecifico \n[9] Aumentar todos os salarios, eba \n[10] Buscar Funcionario\n[11] Sair\n";
+        cout << "O que deseja fazer agora?\n\n"
+        "[01] Adicionar Funcionario\n[02] Excluir funcionario\n[03] Editar funcionario\n[04] Exibir lista de funcionarios\n"
+        "[05] Exibir lista de um tipo específica de funcionario\n[06] Calcular folha salarial\n[07] Exibir folha da empresa\n"
+        "[08] Exibir folha de um funcionario expecifico\n[09] Aumentar todos os salarios, eba\n"
+        "[10] Buscar Funcionario\n[11] Sair\n";
 
         cin >> fazer;
 
@@ -65,8 +69,14 @@ int main()
             emp.buscarFuncionario();
             break;
 
-        default:
+        case 11:
+            //ALTEREI
+            emp.salvarArquivo();
             return 0;
+
+        default:
+            //------------------------------------exception opcao invalida------------------------------------------
+            cout << "Opção inválida!\n\n----------------------------------------------\n" << endl;
         }
     }
     
