@@ -171,3 +171,23 @@ void Funcionario::imprimirFolhaAnual(){
     std::cout << "Salario Anual Liquido: R$ " << getSalarioAno() - getPrevidenciaAno() - getImpostoRendAno() << std::endl;
     std::cout << std::endl;
 }
+
+
+std::string Funcionario::getAreaSupervisao(){
+    return "nao";
+}
+void Funcionario::setAreaSupervisao(std::string areaSupervisao){
+
+}
+std::string Funcionario::getAreaFormacao(){
+    return "nao";
+}
+void Funcionario::setAreaFormacao(std::string areaFormacao){
+
+}
+std::string Funcionario::getFormacaoMaxima(){
+    return "nao";
+}
+void Funcionario::setFormacaoMaxima(std::string formacaoMaxima){
+
+}

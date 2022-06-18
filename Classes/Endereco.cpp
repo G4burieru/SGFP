@@ -28,9 +28,6 @@ void Endereco::parseCEP(){
                 if(i == 2){ //se o indice for 2 (rua), ele começa a leitura a partir do caractere 17 (onde começa o nome da rua) e remove os ultimos 2 caracetres (que correspondem a um '",')
                     rua = json.substr(17, json.size() - 2 - 17);
                     setRua(rua);
-                    /*------------------------------------------------------------------------------------------------------------------------------------
-                    -----------------------------duvida: na rua eh pra mostrar tipo "Rua Fulano de Tal" ou so "Fulano de Tal"-----------------------------
-                    ------------------------------------------------------------------------------------------------------------------------------------*/
                 }
                 //bairro
                 if(i == 4){ //se o indice for 4 (bairro), ele começa a leitura a partir do caractere 13 (onde começa o nome do bairro) e remove os ultimos 2 caracetres (que correspondem a um '",')
