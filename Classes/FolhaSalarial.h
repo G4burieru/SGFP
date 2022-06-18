@@ -24,10 +24,14 @@ public:
     float getHorasExtras();
     int getDiasTrabalhados();
 
+    void lerFolha();
+    void salvarFolha();
+
 private:
     int diasTrabalhados;
     float horasExtras, salarioMesBruto, salarioMesLiquido, descontoPrevidencia, descontoImpostoRend;
 
 };
+
 
 #endif

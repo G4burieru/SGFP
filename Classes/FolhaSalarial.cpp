@@ -103,3 +103,10 @@ void FolhaSalarial::setDiasTrabalhados(int dias){
 void FolhaSalarial::setHorasExtras(float horas){
     horasExtras = horas;
 }
+
+void lerFolha(){
+
+}
+void salvarFolha(){
+
+}

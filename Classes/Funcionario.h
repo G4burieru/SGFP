@@ -37,6 +37,13 @@ public:
     float getSalarioAno();
     float getImpostoRendAno();
     float getPrevidenciaAno();
+    
+    virtual std::string getAreaSupervisao();
+    virtual void setAreaSupervisao(std::string areaSupervisao);
+    virtual std::string getAreaFormacao();
+    virtual void setAreaFormacao(std::string areaFormacao);
+    virtual std::string getFormacaoMaxima();
+    virtual void setFormacaoMaxima(std::string formacaoMaxima);
 
 protected:
     long codigo;

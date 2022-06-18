@@ -14,3 +14,17 @@ void Operador::aumentoSalarial()
 {
     this->salarioDiario+=salarioDiario*0.05;
 }
+
+std::string Operador::getAreaSupervisao(){
+    return NULL;
+}
+void Operador::setAreaSupervisao(std::string areaSupervisao){}
+std::string Operador::getAreaFormacao(){
+    return NULL;
+}
+void Operador::setAreaFormacao(std::string areaFormacao){}
+
+std::string Operador::getFormacaoMaxima(){
+    return NULL;
+}
+void Operador::setFormacaoMaxima(std::string formacaoMaxima){}

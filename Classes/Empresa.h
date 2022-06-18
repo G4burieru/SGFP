@@ -25,6 +25,8 @@ public:
     void buscarFuncionario();
     std::string padronizaTelefone(long long telefonlong);
     bool validaData(int dia, int mes, int ano);
+    void salvarFuncionario();
+    void lerFuncionario();
     
 
 protected:
