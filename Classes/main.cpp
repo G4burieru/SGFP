@@ -6,11 +6,14 @@
 #include "Gerente.h"
 #include "Operador.h"
 #include "Presidente.h"
+#include <Windows.h>
 
 using namespace std;
 
+
 int main()
 {
+    SetConsoleOutputCP(CP_UTF8);
     Empresa emp;
     int fazer;
 
@@ -110,6 +113,10 @@ int main()
             if (x==1)
             {
                std::cout << "Erro "<< x <<" Not Found!" << endl;
+            }
+            if( x==9)
+            {
+                cout<< "Opção Invalida! ERROR " << x << "\n" << endl;
             }
         }
             break;

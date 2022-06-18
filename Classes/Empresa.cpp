@@ -32,6 +32,7 @@ void Empresa::editarFuncionario()
     string novoString;
     string novoCEP, novoNumeroRua;
     float novoFloat;
+    long long telefonlong;
     Data novaData(0, 0, 0);
 
     std::cout << "Insira o codigo do funcionario a se alterar: ";
@@ -77,7 +78,8 @@ void Empresa::editarFuncionario()
 
         case 5: //alterar telefone
             std::cout << "Insira o novo telefone: ";
-            getline(cin, novoString);
+            cin >> telefonlong;
+            novoString = padronizaTelefone(telefonlong);
             funcionarios[indice]->setTelefone(novoString);
             break;
 
@@ -317,6 +319,12 @@ void Empresa::ImprimeFolhaSalarialFuncionario() //imprime a folha salarial de um
             }
         }
     }
+
+    if(opcao!=1 || opcao!=2)
+    {
+        throw 9;
+    }
+
     std::cout << "Voce deseja imprimir a folha de qual mes?\n";
     cin >> mes;
 
