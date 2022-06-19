@@ -21,11 +21,13 @@ public:
 
     void setDiasTrabalhados(int dias);
     void setHorasExtras(float horas);
+    void setSalarioMesBruto(float salarioB);
+    void setSalarioMesLiquido(float salarioL);
+    void setDescontoPrevidencia(float descontoP);
+    void setDescontoImpostoRend(float descontoI);
+
     float getHorasExtras();
     int getDiasTrabalhados();
-
-    void lerFolha();
-    void salvarFolha();
 
 private:
     int diasTrabalhados;

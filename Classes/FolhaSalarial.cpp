@@ -97,16 +97,31 @@ int FolhaSalarial::getDiasTrabalhados()
     return diasTrabalhados;
 }
 
-void FolhaSalarial::setDiasTrabalhados(int dias){
+void FolhaSalarial::setDiasTrabalhados(int dias)
+{
     diasTrabalhados = dias;
 }
-void FolhaSalarial::setHorasExtras(float horas){
+
+void FolhaSalarial::setHorasExtras(float horas)
+{
     horasExtras = horas;
 }
-
-void lerFolha(){
-
+void FolhaSalarial::setSalarioMesBruto(float salarioB)
+{
+    salarioMesBruto = salarioB;
 }
-void salvarFolha(){
 
+void FolhaSalarial::setSalarioMesLiquido(float salarioL)
+{
+    salarioMesLiquido = salarioL;
+}
+
+void FolhaSalarial::setDescontoPrevidencia(float descontoP)
+{
+    descontoPrevidencia = descontoP;
+}
+
+void FolhaSalarial::setDescontoImpostoRend(float descontoI)
+{
+    descontoImpostoRend = descontoI;
 }

@@ -13,7 +13,7 @@ public:
     void aumentoSalarial();
 
 
-         std::string getAreaSupervisao();
+    std::string getAreaSupervisao();
      void setAreaSupervisao(std::string areaSupervisao);
      std::string getAreaFormacao();
      void setAreaFormacao(std::string areaFormacao);

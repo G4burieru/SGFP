@@ -250,8 +250,10 @@ void Empresa::exibirRegistro(int indice)
 
     std::cout << "Telefone: " << funcionarios[indice]->getTelefone() << endl;
     std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << endl;
-    std::cout << "Endereco: " << funcionarios[indice]->getEndereco().getRua() << ", " << funcionarios[indice]->getEndereco().getNumero() << endl;
-    std::cout << endl;
+    std::cout << "Logradouro: " << funcionarios[indice]->getEndereco().getRua() << ", " << funcionarios[indice]->getEndereco().getNumero() << endl;
+    std::cout << "Bairro: " << funcionarios[indice]->getEndereco().getBairro() << endl;
+    std::cout << "Cidade: " << funcionarios[indice]->getEndereco().getCidade() << endl;
+    std::cout << "Estado: " << funcionarios[indice]->getEndereco().getEstado() << endl;
     //salvar o funcionario no arquivo
 
     //Exibit o resto das coisas do endereço --------------------------------------------------------------------------------------
@@ -316,8 +318,13 @@ void Empresa::calcularFolhaSalarial()
     std::cout << "Digite o numero do mes que voce deseja calcular a folha salarial:\n";
     cin >> mes;
 
+    if(mes<1 || mes>12)
+    {
+        throw 6;
+    }
+
     if(folhaSalarialCalculada[mes-1] == 1){
-        std::cout << "A folha salarial desse mes já foi calculada.";
+        throw 11;
     }else{
         std::cout << "Calculando folha salarial...";
 
@@ -330,6 +337,7 @@ void Empresa::calcularFolhaSalarial()
 
         folhaSalarialCalculada[mes-1] = 1;
     }
+    salvarFolha(mes-1);
     
 }
 
@@ -418,13 +426,14 @@ void Empresa::ImprimeFolhaSalarialEmpresa() //imprime a folha salarial da empres
     std::cout << "Deseja imprimir uma folha mensal ou a folha anual?\n[01] Mensal \n[02] Anual\n";
     std::cin >> opcao;
 
-    if(opcao == 1){
+    if(opcao == 1)
+    {
         int mes;
 
         cout << "Digite o mês que você deseja exibir a folha salarial:\n";
         cin >> mes;
 
-        if(folhaSalarialCalculada[mes] == 0)
+        if(folhaSalarialCalculada[mes-1] == false)
         {
             throw 10; //folha não calculada
         }
@@ -441,7 +450,8 @@ void Empresa::ImprimeFolhaSalarialEmpresa() //imprime a folha salarial da empres
 
     }
 
-    else if(opcao == 2){
+    else if(opcao == 2)
+    {
 
         std::cout << "Folha Anual" << endl;
 
@@ -662,6 +672,7 @@ void Empresa::buscarFuncionario()
     switch(tipo)
     {
         case 1:
+        {
         //caso o elemento escolhido for 1 (nome), sera usado um for para percorrer todos os elementos do vector ate achar um funcionário que tenha o nome digitado em alguma parte de seu nome completo
             std::cin.ignore(); //ignora o '\n' lido pelo cin
             std::cout << "Digite um nome pelo qual você deseja procurar um funcionário" << std::endl;
@@ -672,10 +683,12 @@ void Empresa::buscarFuncionario()
                 //se o nome digitado pelo usuario estiver presente no nome completo do funcionário do indice i, achou será true e o funcionário será exibido
                 if(funcionarios[i]->getNome().find(nome) != std::string::npos)
                 {
+                    cout << "----------------------------------------------";
                     achou = true;
                     //exibirRegistro do funcionario com o indicie atual (indicie i)
                     exibirRegistro(i);
                 }
+                cout << "----------------------------------------------";
             }
             //caso nao tenha sido encontrado nenhum funcionário com aquele nome (achou continua como false), o programa informará o erro
             if(!achou)
@@ -683,7 +696,9 @@ void Empresa::buscarFuncionario()
                 throw 1;
             }
             break;
+        }
         case 2:
+        {
         //caso o elemento escolhido for 2 (data), sera usado um for para percorrer todos os elementos do vector ate achar um funcionário com aquele intervalo de data de ingresso
             int dia1, dia2, mes1, mes2, ano1, ano2; // variaveis para ler os dois intervalos de tempo que seram usados para buscar um funcionário
             std::cout << "Digite a primeira data do intervalo (menor data) no padrao (DD MM AAAA)" << std::endl;
@@ -695,7 +710,7 @@ void Empresa::buscarFuncionario()
             {
                 throw 6; // data invalida
             }
-
+            system("CLS");
             for(int i = 0; i < funcionarios.size(); i++)
             {
                 //verifica se as duas datas digitadas sao iguais, se sim, ele irá verificar apenas aquela data exata
@@ -703,11 +718,13 @@ void Empresa::buscarFuncionario()
                 {
                     if(funcionarios[i]->getData().getAno() == ano1 && funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() == dia1)
                     {
+                        cout << "----------------------------------------------";
                         achou = true;
                         //exibirRegistro do funcionario com o indicie atual (indicie i)
                         exibirRegistro(i);
                         break;
                     }
+                    cout << "----------------------------------------------";
                 }
                 //verifica se o funcionário tem seu ano dentro do intervalo de anos fornecidos
                 else if(funcionarios[i]->getData().getAno() >= ano1 && funcionarios[i]->getData().getAno() <= ano2)
@@ -718,6 +735,7 @@ void Empresa::buscarFuncionario()
                         //se o mes for maior que o menor possivel e menor que 12, entao o dia nao importa
                         if(funcionarios[i]->getData().getMes() > mes1)
                         {
+                            cout << "----------------------------------------------";
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
@@ -725,10 +743,12 @@ void Empresa::buscarFuncionario()
                         //se o seu mês for o menor possível, verifica se o seu dia está dentro do intervalo válido
                         else if(funcionarios[i]->getData().getMes() == mes1 && funcionarios[i]->getData().getDia() >= dia1 && funcionarios[i]->getData().getDia() <= 30)
                         {
+                            cout << "----------------------------------------------";
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
+                        cout << "----------------------------------------------";
                     }
                     //verifica se o ano do funcionário é o maior ano possivel e então verifica se o seu mês está dentro do intervalo válido
                     else if(funcionarios[i]->getData().getAno() == ano2 && funcionarios[i]->getData().getMes() <= mes2 && funcionarios[i]->getData().getMes() >= 1)
@@ -736,6 +756,7 @@ void Empresa::buscarFuncionario()
                         //se o mes for menor que o maior possivel e maior que 1, entao o dia nao importa
                         if(funcionarios[i]->getData().getMes() < mes2)
                         {
+                            cout << "----------------------------------------------";
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
@@ -743,18 +764,22 @@ void Empresa::buscarFuncionario()
                         //se o seu mês for o maior possível, verifica se o seu dia está dentro do intervalo válido
                         else if(funcionarios[i]->getData().getMes() == mes2 && funcionarios[i]->getData().getDia() <= dia2 && funcionarios[i]->getData().getDia() >= 1)
                         {
+                            cout << "----------------------------------------------";
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
+                        cout << "----------------------------------------------";
                     }
                     //se o ano do funcionário estiver dentro do intervalo, mas não for nem o menor e nem o maior possível, então certamente a data do funcionário está dentro do intervalo aceito
                     else if(funcionarios[i]->getData().getAno() > ano1 && funcionarios[i]->getData().getAno() < ano2)
                     {
+                        cout << "----------------------------------------------";
                         achou = true;
                         //exibirRegistro do funcionario com o indicie atual (indicie i)
                         exibirRegistro(i);
-                    }                                                                           
+                    }
+                    cout << "----------------------------------------------";                                                                           
                 }
             }
             //caso nao tenha sido encontrado nenhum funcionário naquele intervalo de tempo, o programa informara o erro
@@ -763,7 +788,9 @@ void Empresa::buscarFuncionario()
                 throw 1;
             }
             break;
+        }
         case 3:
+        {
         //caso o elemento escolhido for 3 (Endereço), será perguntado ao usuário se ele deseja fazer a busca por [1] Cidade, [2] Bairro, [3] Rua ou [4] CEP
             std::cout << "Qual elementos você deseja usar para fazer a busca?\n[01] Cidade\n[02] Bairro\n[03] Rua\n[04] CEP" << std::endl;
             std::cin >> tipoEnd;
@@ -776,15 +803,18 @@ void Empresa::buscarFuncionario()
                     std::cout << "Digite a cidade que você deseja fazer a busca" << std::endl;
                     getline(std::cin, cidade);
                     //for que percorre todos os elementos do vector
+                    system("CLS");
                     for(int i = 0; i < funcionarios.size(); i++)
                     {
                         //se a cidade digitada pelo usuario for igual a cidade do funcionário do indice i, achou será true e o funcionário será exibido
                         if(funcionarios[i]->getEndereco().getCidade().find(cidade) != std::string::npos)
                         {
+                            cout << "----------------------------------------------";
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
+                        cout << "----------------------------------------------";
                     }
                     break;
                 }
@@ -793,15 +823,18 @@ void Empresa::buscarFuncionario()
                     std::string bairro;
                     std::cout << "Digite o bairro que você deseja fazer a busca" << std::endl;
                     getline(std::cin, bairro);
+                    system("CLS");
                     for(int i = 0; i < funcionarios.size(); i++)
                     {
                         //se o bairro digitada pelo usuario for igual ao bairro do funcionário do indice i, achou será true e o funcionário será exibido
                         if(funcionarios[i]->getEndereco().getBairro().find(bairro) != std::string::npos)
                         {
+                            cout << "----------------------------------------------";
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
+                        cout << "----------------------------------------------";
                     }
                     break;
                 }
@@ -810,60 +843,67 @@ void Empresa::buscarFuncionario()
                     std::string rua;
                     std::cout << "Digite a rua que você deseja fazer a busca" << std::endl;
                     getline(std::cin, rua);
+                    system("CLS");
                     for(int i = 0; i < funcionarios.size(); i++)
                     {
                         //se a rua digitada pelo usuario for igual a rua do funcionário do indice i, achou será true e o funcionário será exibido
                         if(funcionarios[i]->getEndereco().getRua().find(rua) != std::string::npos)
-                        {
+                        {   
+                            cout << "----------------------------------------------";
                             achou = true;
                             //exibirRegistro do funcionario com o indicie atual (indicie i)
                             exibirRegistro(i);
                         }
+                        cout << "----------------------------------------------";
                     }
                     break;
+                }
+                case 4:
+                {
+
+                    std::cout << "Digite o CEP que você deseja fazer a busca" << std::endl;
+                    getline(std::cin, CEP);
+
+                    if(CEP.size() == 9)
+                    {
+                        CEP.replace(5,1,"");
+                    }
+
+                    system("CLS");
+                    for(int i = 0; i < funcionarios.size(); i++)
+                    {
+                        //se o CEP digitada pelo usuario for igual ao CEP do funcionário do indice i, achou será true e o funcionário será exibido
+                        if(funcionarios[i]->getEndereco().getCEP() == CEP)
+                        {
+                            cout << "----------------------------------------------";
+                            achou = true;
+                            //exibirRegistro do funcionario com o indicie atual (indicie i)
+                            exibirRegistro(i);
+                        }
+                        cout << "----------------------------------------------";
+                    }
+                    break;
+                }
+                default:
+                {
+                    throw 9;
+                    break; 
+                }         
+                //caso nao tenha sido encontrado nenhum funcionário com aquele endereço, o programa informará o erro
+                if(!achou)
+                {
+                    throw 1;
                 }
                 break;
             }
-            case 4:
-            {
-
-                std::cout << "Digite o CEP que você deseja fazer a busca" << std::endl;
-                getline(std::cin, CEP);
-
-                if(CEP.size() == 9)
-                {
-                    CEP.replace(5,1,"");
-                }
-
-                for(int i = 0; i < funcionarios.size(); i++)
-                
-                {
-                    //se o CEP digitada pelo usuario for igual ao CEP do funcionário do indice i, achou será true e o funcionário será exibido
-                    if(funcionarios[i]->getEndereco().getCEP() == CEP)
-                    {
-                        achou = true;
-                        //exibirRegistro do funcionario com o indicie atual (indicie i)
-                        exibirRegistro(i);
-                    }
-
-                    break;
-                }
-                
-                default:
-                {
-                    //caso o tipo digitado nao exista
-                    std::cout << "Voce digitou um tipo inválido!" << std::endl;
-                    break;
-                }            
-            }
-            //caso nao tenha sido encontrado nenhum funcionário com aquele endereço, o programa informará o erro
-            if(!achou)
-            {
-                throw 1;
-            }
             break;
-
-
+        }
+        default:
+        {
+            throw 9;
+            break;
+        }
+        
     }
 }
 void Empresa::salvarFuncionario(){
@@ -996,4 +1036,205 @@ void Empresa::lerFuncionario(){
         }
         fs.close();
     }
+}
+
+void Empresa::salvarFolha(int j)
+{
+    std::fstream fs;
+    
+    switch(j){
+        case 0:
+        {
+ 
+            fs.open("FolhasSalariais/jan.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 1:
+        {
+            fs.open("FolhasSalariais/fev.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 2:
+        {
+            fs.open("FolhasSalariais/mar.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 3:
+        {
+            fs.open("FolhasSalariais/abr.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 4:
+        {
+            fs.open("FolhasSalariais/mai.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 5:
+        {
+            fs.open("FolhasSalariais/jun.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 6:
+        {
+            fs.open("FolhasSalariais/jul.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 7:
+        {
+            fs.open("FolhasSalariais/ago.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 8:
+        {
+            fs.open("FolhasSalariais/set.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 9:
+        {
+            fs.open("FolhasSalariais/out.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 10:
+        {
+            fs.open("FolhasSalariais/nov.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+        case 11:
+        {
+            fs.open("FolhasSalariais/dez.txt", std::fstream::out);
+            if(!fs.is_open())
+            {
+                std::cout << "Erro ao abrir arquivo para escrita\n";
+                break;
+            }
+            break;
+        }
+    }
+    for(int i = 0; i < funcionarios.size(); i++)
+    {
+
+        fs << "-----" << std::endl;
+        fs << funcionarios[i]->getNome() << std::endl;
+        fs << funcionarios[i]->folhaDoMes[j].getSalarioMesBruto() << std::endl;
+        fs << funcionarios[i]->folhaDoMes[j].getDescontoPrevidencia() << std::endl;
+        fs << funcionarios[i]->folhaDoMes[j].getDescontoImpostoRend() << std::endl;
+        fs << funcionarios[i]->folhaDoMes[j].getDescontoPrevidencia() + funcionarios[i]->folhaDoMes[j].getDescontoImpostoRend() << std::endl;
+        fs << funcionarios[i]->folhaDoMes[j].getSalarioMesLiquido() << std::endl;
+        fs << funcionarios[i]->folhaDoMes[j].getDiasTrabalhados() << std::endl;
+        fs << funcionarios[i]->folhaDoMes[j].getHorasExtras() << std::endl;
+    }
+    fs.close();
+}
+
+void Empresa::lerFolha(){
+    string mes[12] = {"FolhasSalariais/jan.txt", "FolhasSalariais/fev.txt", "FolhasSalariais/mar.txt", "FolhasSalariais/abr.txt", 
+                      "FolhasSalariais/mai.txt", "FolhasSalariais/jun.txt", "FolhasSalariais/jul.txt", "FolhasSalariais/ago.txt", 
+                      "FolhasSalariais/set.txt", "FolhasSalariais/out.txt", "FolhasSalariais/nov.txt", "FolhasSalariais/dez.txt"};
+    int quantTem = funcionarios.size(); // quantos funcionarios tem na lista
+    int quantLeu = 0; // quantos funcionarios ja leu da lista
+    fstream fs;
+    std::string linha;
+    std::string nome;
+    float salarioMesBruto;
+    float descontoPrevidencia;
+    float descontoImpostoRend;
+    float descontoTotal;
+    float salarioLiquido;
+    int diasTrabalhados;
+    float horasExtras;
+
+    for(int j = 0; j < 12; j++)
+    {
+        quantLeu = 0;
+        //essa segunda parte vai ler o arquivo ja sabendo quantos funcionarios tem e parar exatamente onde deve
+        {
+            fs.open(mes[j], fstream::in);
+            if(!fs.is_open()){
+                continue;
+            }   
+            while(1){
+                if(quantLeu == quantTem){
+                    break;
+                }
+                
+                fs.ignore();
+                getline(fs, linha);
+                getline(fs, nome);
+                fs >> salarioMesBruto;
+                fs >> descontoPrevidencia;
+                fs >> descontoImpostoRend;
+                fs >> descontoTotal;
+                fs >> salarioLiquido;
+                fs >> diasTrabalhados;
+                fs >> horasExtras;
+
+                funcionarios[quantLeu]->setDiasTrabalhadosMes(diasTrabalhados, j+1);
+                funcionarios[quantLeu]->setHorasExtrasMes(horasExtras, j+1);
+                funcionarios[quantLeu]->setSalarioMesBrutoMes(salarioMesBruto, j+1);
+                funcionarios[quantLeu]->setSalarioMesLiquidoMes(salarioLiquido, j+1);
+                funcionarios[quantLeu]->setDescontoPrevidenciaMes(descontoPrevidencia, j+1);
+                funcionarios[quantLeu]->setdescontoImpostoRendMes(descontoImpostoRend, j+1);
+                quantLeu++;
+                
+            }
+            folhaSalarialCalculada[j] = true;
+            fs.close();
+        }
+    }
+
 }

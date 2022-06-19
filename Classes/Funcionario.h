@@ -29,14 +29,21 @@ public:
     void setData(Data data);
     void setDesignacao(int designacao);
     void setSalarioDiario(float salario);
-    void setDiasTrabalhadosMes(int dias, int mes);
-    void setHorasExtrasMes(float horas, int mes);
+    
     void calculaFolhaMes(float SalarioDiario, int mes);
     void imprimirFolhaMes(int mes);
     void imprimirFolhaAnual();
     float getSalarioAno();
     float getImpostoRendAno();
     float getPrevidenciaAno();
+    int getDiasTrabalhadosMes();
+
+    void setDiasTrabalhadosMes(int dias, int mes);
+    void setHorasExtrasMes(float horas, int mes);
+    void setSalarioMesBrutoMes(float salarioB, int mes);
+    void setSalarioMesLiquidoMes(float salarioL, int mes);
+    void setDescontoPrevidenciaMes(float descontoP, int mes);
+    void setdescontoImpostoRendMes(float descontoI, int mes);
     
     virtual std::string getAreaSupervisao();
     virtual void setAreaSupervisao(std::string areaSupervisao);
@@ -44,6 +51,7 @@ public:
     virtual void setAreaFormacao(std::string areaFormacao);
     virtual std::string getFormacaoMaxima();
     virtual void setFormacaoMaxima(std::string formacaoMaxima);
+    FolhaSalarial folhaDoMes[12]; 
 
 protected:
     long codigo;
@@ -54,8 +62,6 @@ protected:
     Data data;
     int designacao;
     float salarioDiario;
-    FolhaSalarial folhaDoMes[12]; 
-
 
 };
 
