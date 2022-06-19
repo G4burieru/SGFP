@@ -53,6 +53,10 @@ void telaErro(int x)
     {
         cout << "Folha do Mês não Calculada! ERROR " << x << "\n" << endl;
     }
+    else if(x==11)
+    {
+        cout << "Folha do Mês Já Calculada! ERROR " << x << "\n" << endl;
+    }
     system("PAUSE");
 }
 
@@ -64,6 +68,7 @@ int main()
     int fazer;
 
     emp.lerFuncionario();
+    emp.lerFolha();
     system("CLS");
 
     cout << "Bem vindo ao programa, essa é uma versão teste ^-^\n";
@@ -144,8 +149,15 @@ int main()
 
         case 7:
             system("CLS");
+            try
+            {
             emp.ImprimeFolhaSalarialEmpresa();
             system("PAUSE");
+            }
+            catch(int x)
+            {
+                telaErro(x);
+            }
             break;
         
         case 8:
@@ -171,6 +183,7 @@ int main()
             try
             {
                 emp.buscarFuncionario();
+                system("PAUSE");
             }
             catch(int x)
             {

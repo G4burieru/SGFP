@@ -100,8 +100,25 @@ Endereco Funcionario::getEndereco(){
 void Funcionario::setDiasTrabalhadosMes(int dias, int mes){
     folhaDoMes[mes-1].setDiasTrabalhados(dias);
 }
+
 void Funcionario::setHorasExtrasMes(float horas, int mes){
     folhaDoMes[mes-1].setHorasExtras(horas);
+}
+
+void Funcionario::setSalarioMesBrutoMes(float salarioB, int mes){
+    folhaDoMes[mes-1].setSalarioMesBruto(salarioB);
+}
+
+void Funcionario::setSalarioMesLiquidoMes(float salarioL, int mes){
+    folhaDoMes[mes-1].setSalarioMesLiquido(salarioL);
+}
+
+void Funcionario::setDescontoPrevidenciaMes(float descontoP, int mes){
+    folhaDoMes[mes-1].setDescontoPrevidencia(descontoP);
+}
+
+void Funcionario::setdescontoImpostoRendMes(float descontoI, int mes){
+    folhaDoMes[mes-1].setDescontoImpostoRend(descontoI);
 }
 
 void Funcionario::calculaFolhaMes(float SalarioDiario, int mes)

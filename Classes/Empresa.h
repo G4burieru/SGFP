@@ -27,7 +27,9 @@ public:
     bool validaData(int dia, int mes, int ano);
     void salvarFuncionario();
     void lerFuncionario();
-    
+
+    void salvarFolha(int j);
+    void lerFolha();
 
 protected:
     void setDiasEHorasAleatorios(int mes, int indice);
