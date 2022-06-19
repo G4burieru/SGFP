@@ -98,3 +98,11 @@ void Endereco::setCEP(std::string CEP){
 void Endereco::setNumero(std::string numero){
     this->numero = numero;
 }
+
+bool Endereco::validaCEP(){
+    if(estado == "" || cidade == "" || bairro == "" ){
+        return false;
+    }
+    else return true;
+
+}
