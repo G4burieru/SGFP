@@ -1,8 +1,6 @@
 #ifndef ENDERECO_H
 #define ENDERECO_H
 
-#pragma once
-
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
@@ -29,6 +27,7 @@ public:
     void setRua(std::string rua);
     void setCEP(std::string CEP);
     void setNumero(std::string numero);
+    bool validaCEP();
 
 protected:
     std::string estado, cidade, bairro, rua, CEP, numero;

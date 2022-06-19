@@ -1,8 +1,6 @@
 #ifndef FOLHASALARIAL_H
 #define FOLHASALARIAL_H
 
-#pragma once
-
 class FolhaSalarial
 {
 public:
