@@ -100,8 +100,25 @@ Endereco Funcionario::getEndereco(){
 void Funcionario::setDiasTrabalhadosMes(int dias, int mes){
     folhaDoMes[mes-1].setDiasTrabalhados(dias);
 }
+
 void Funcionario::setHorasExtrasMes(float horas, int mes){
     folhaDoMes[mes-1].setHorasExtras(horas);
+}
+
+void Funcionario::setSalarioMesBrutoMes(float salarioB, int mes){
+    folhaDoMes[mes-1].setSalarioMesBruto(salarioB);
+}
+
+void Funcionario::setSalarioMesLiquidoMes(float salarioL, int mes){
+    folhaDoMes[mes-1].setSalarioMesLiquido(salarioL);
+}
+
+void Funcionario::setDescontoPrevidenciaMes(float descontoP, int mes){
+    folhaDoMes[mes-1].setDescontoPrevidencia(descontoP);
+}
+
+void Funcionario::setdescontoImpostoRendMes(float descontoI, int mes){
+    folhaDoMes[mes-1].setDescontoImpostoRend(descontoI);
 }
 
 void Funcionario::calculaFolhaMes(float SalarioDiario, int mes)
@@ -170,4 +187,24 @@ void Funcionario::imprimirFolhaAnual(){
     std::cout << "Total de Descontos: R$ " << getPrevidenciaAno() + getImpostoRendAno() << std::endl;
     std::cout << "Salario Anual Liquido: R$ " << getSalarioAno() - getPrevidenciaAno() - getImpostoRendAno() << std::endl;
     std::cout << std::endl;
+}
+
+
+std::string Funcionario::getAreaSupervisao(){
+    return "nao";
+}
+void Funcionario::setAreaSupervisao(std::string areaSupervisao){
+
+}
+std::string Funcionario::getAreaFormacao(){
+    return "nao";
+}
+void Funcionario::setAreaFormacao(std::string areaFormacao){
+
+}
+std::string Funcionario::getFormacaoMaxima(){
+    return "nao";
+}
+void Funcionario::setFormacaoMaxima(std::string formacaoMaxima){
+
 }
