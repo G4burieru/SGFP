@@ -70,7 +70,7 @@ int Menu::abrirmenu()
     emp.lerFolha();
     system("CLS");
 
-    std::cout << "Bem vindo ao programa, essa é uma versão teste ^-^\n";
+    std::cout << "Bem vindo ao programa ^-^\n";
     Sleep(2000);
 
     while(1)
@@ -79,7 +79,7 @@ int Menu::abrirmenu()
         cout << "O que deseja fazer agora?\n\n"
         "[01] Adicionar Funcionario\n[02] Excluir funcionario\n[03] Editar funcionario\n[04] Exibir lista de funcionarios\n"
         "[05] Exibir lista de um tipo específica de funcionario\n[06] Calcular folha salarial\n[07] Exibir folha da empresa\n"
-        "[08] Exibir folha de um funcionario expecifico\n[09] Aumentar todos os salarios, eba\n"
+        "[08] Exibir folha de um funcionario expecifico\n[09] Aumentar todos os salarios\n"
         "[10] Buscar Funcionario\n[11] Sair\n";
 
         cin >> fazer;
