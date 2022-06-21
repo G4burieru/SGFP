@@ -8,6 +8,10 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <iomanip>
+#include <windows.h>
+
+#define ANOATUAL 2022
 
 Empresa::Empresa()
 {
@@ -41,7 +45,7 @@ void Empresa::editarFuncionario()
     indice = getFuncionarioPorCodigo(codigo);
 
     std::cout << "Escolha o que alterar: \n[01] Codigo\n[02] Data de Ingresso"
-    "\n[03] Nome\n[04] Endereco\n[05] Telefone\n[06] Designacao\n[07] Salario\n[00] Voltar\n";
+    "\n[03] Nome\n[04] Endereco\n[05] Telefone\n[06] Designacao\n[07] Area de Supervisão, Formação ou Formação Máxima\n[08] Salario\n[00] Voltar\n";
     std::cin >> opcao;
     std::cin.ignore();
 
@@ -82,7 +86,7 @@ void Empresa::editarFuncionario()
         case 4: //alterar endereco
             std::cout <<"Insira o novo CEP: ";
             getline(std::cin, novoCEP);
-            std::cout <<"Insira o novo numero da casa: ";
+            std::cout <<"Insira o novo número da casa: ";
             getline(std::cin, novoNumeroCasa);
             funcionarios[indice]->setEndereco(novoCEP, novoNumeroCasa);
             break;
@@ -102,7 +106,7 @@ void Empresa::editarFuncionario()
             break;
 
         case 6: //alterar designacao
-            std::cout << "Insira a nova designacao \n[01] Operador\n[02] Gerente\n[03] Diretor\n[04] Presidente\n";
+            std::cout << "Insira a nova designação \n[01] Operador\n[02] Gerente\n[03] Diretor\n[04] Presidente\n";
             std::cin >> tipo;
             std::cin.ignore();
 
@@ -133,6 +137,9 @@ void Empresa::editarFuncionario()
                     getline(std::cin, novoString2);
                     funcionario = new Presidente(funcionarios[indice]->getCodigo(), funcionarios[indice]->getNome(), funcionarios[indice]->getEndereco(), funcionarios[indice]->getTelefone(), funcionarios[indice]->getData(), funcionarios[indice]->getSalarioDiario(), novoString, novoString2);
                     break;
+
+                default:
+                    throw 9; // opcao invalida
             }
 
             funcionarios.push_back(funcionario);
@@ -140,7 +147,31 @@ void Empresa::editarFuncionario()
             salvarFuncionario();
             break;
 
-        case 7: //alterar  salario
+        case 7: //alterar area de supervisao, formacao ou formacao maxima
+            if(funcionarios[indice]->getDesignacao() == 2){
+                std::cout << "Insira a nova Área de Supervisão: " << std::endl;
+                getline(std::cin, novoString);
+                funcionarios[indice]->setAreaSupervisao(novoString);
+            }
+            else if(funcionarios[indice]->getDesignacao() == 3){
+                    std::cout << "Insira a nova Área de Supervisão: " << std::endl;
+                    getline(std::cin, novoString);
+                    funcionarios[indice]->setAreaSupervisao(novoString);
+                    std::cout << "Insira a nova Área de Formação: " << std::endl;
+                    getline(std::cin, novoString2);
+                    funcionarios[indice]->setAreaFormacao(novoString2);
+            }
+            else if(funcionarios[indice]->getDesignacao() == 4){
+                    std::cout << "Insira a nova Área de Formação: " << std::endl;
+                    getline(std::cin, novoString);
+                    funcionarios[indice]->setAreaFormacao(novoString);
+                    std::cout << "Insira a nova Área de Formação Máxima: " << std::endl;
+                    getline(std::cin, novoString2);
+                    funcionarios[indice]->setFormacaoMaxima(novoString2);
+            }
+            break;
+
+        case 8: //alterar  salario
             std::cout << "Insira o novo diário salario: ";
             std::cin >> novoFloat;
             funcionarios[indice]->setSalarioDiario(novoFloat);
@@ -149,7 +180,7 @@ void Empresa::editarFuncionario()
         case 0:
             break;
         
-        default: //opçãp invalida
+        default: //opção invalida
             throw 9;
     }
     salvarFuncionario();
@@ -160,7 +191,7 @@ void Empresa::excluirFuncionario()
     int codigo, indice, designacao;
     bool encontrado = false, confirmacao = false;
 
-    std::cout << "Insira o codigo do funcionario a ser excluido: ";
+    std::cout << "Insira o codigo do funcionário a ser excluido: ";
     std::cin >> codigo;
 
     for(int i= 0; i < funcionarios.size(); i++)
@@ -201,7 +232,6 @@ void Empresa::excluirFuncionario()
     }
     salvarFuncionario();
 
-    
 }
 
 void Empresa::exibirRegistro(int indice)
@@ -235,11 +265,11 @@ void Empresa::exibirRegistro(int indice)
 
 
     if(funcionarios[indice]->getDesignacao() == 2 || funcionarios[indice]->getDesignacao() == 3){
-        std::cout << "Nome da área de supervisão: " << funcionarios[indice]->getAreaSupervisao() << std::endl;
+        std::cout << "Área de supervisão: " << funcionarios[indice]->getAreaSupervisao() << std::endl;
     }
 
     if(funcionarios[indice]->getDesignacao() == 3 || funcionarios[indice]->getDesignacao() == 4){
-        std::cout << "Area de formação: " << funcionarios[indice]->getAreaFormacao() << std::endl;
+        std::cout << "Área de formação: " << funcionarios[indice]->getAreaFormacao() << std::endl;
     }
 
     if(funcionarios[indice]->getDesignacao() == 4){
@@ -247,12 +277,13 @@ void Empresa::exibirRegistro(int indice)
     }
 
     std::cout << "Telefone: " << funcionarios[indice]->getTelefone() << std::endl;
-    std::cout << "SalarioDiario: " << funcionarios[indice]->getSalarioDiario() << std::endl;
+    std::cout << std::fixed;
+    std::cout << "Salário Diario: " << std::setprecision(2) << funcionarios[indice]->getSalarioDiario() << std::endl;
     std::cout << "Logradouro: " << funcionarios[indice]->getEndereco().getRua() << ", " << funcionarios[indice]->getEndereco().getNumero() << std::endl;
     std::cout << "Bairro: " << funcionarios[indice]->getEndereco().getBairro() << std::endl;
     std::cout << "Cidade: " << funcionarios[indice]->getEndereco().getCidade() << std::endl;
     std::cout << "Estado: " << funcionarios[indice]->getEndereco().getEstado() << std::endl;
-    //salvar o funcionario no arquivo
+    std::cout << std::endl;
    
 }
 
@@ -324,13 +355,19 @@ void Empresa::calcularFolhaSalarial()
         throw 11;
     }else{
         std::cout << "Calculando folha salarial...";
+        Sleep(1000);
 
         for(int i = 0; i < funcionarios.size(); i++){
+            //se o funcionario foi cadastrado com um ano igual ao atual porem em um mes superior ao da folha que esta sendo calculada ou se o ano de cadastro for maior ao atual, esse funcionario sera pulado
+            if(funcionarios[i]->getData().getAno() == ANOATUAL && funcionarios[i]->getData().getMes() > mes){
+                continue;
+            }
             setDiasEHorasAleatorios(mes, i);
             funcionarios[i]->calculaFolhaMes(funcionarios[i]->getSalarioDiario(), mes);
         }
 
         std::cout << "Folha salarial calculada com sucesso!";
+        Sleep(1000);
 
         folhaSalarialCalculada[mes-1] = 1;
     }
@@ -341,7 +378,7 @@ void Empresa::calcularFolhaSalarial()
 void Empresa::exibirListaFuncionariosTipo()
 {
     int designacao;
-    std::cout << "Insira a designacao dos funcionarios a serem exibidos \n[01] Operador\n[02] Gerente\n[03] Diretor\n[04] Presidente\n";
+    std::cout << "Insira a designacao dos funcionários a serem exibidos \n[01] Operador\n[02] Gerente\n[03] Diretor\n[04] Presidente\n";
     std::cin >> designacao;
     if(designacao<1 || designacao>4)
     {
@@ -376,7 +413,7 @@ void Empresa::ImprimeFolhaSalarialFuncionario() //imprime a folha salarial de um
     {
         long codigo;
 
-        std::cout << "Digite o codigo do funcionario:\n";
+        std::cout << "Digite o codigo do funcionário:\n";
         std::cin >> codigo;
 
         indice = getFuncionarioPorCodigo(codigo);
@@ -386,7 +423,7 @@ void Empresa::ImprimeFolhaSalarialFuncionario() //imprime a folha salarial de um
     {
         std::string nome;
 
-        std::cout << "Digite o nome completo do funcionario:\n";
+        std::cout << "Digite o nome completo do funcionário:\n";
         getline(std::cin, nome);
 
         try
@@ -481,7 +518,7 @@ std::string Empresa::padronizaTelefone(long long telefonlong) // padroniza o tel
 bool Empresa::validaData(int dia, int mes, int ano)
 {
     int diasmes[12]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    if(ano<2000 || ano>2022)
+    if(ano<2000 || ano>ANOATUAL)
     {
         throw 6;
         return false;
@@ -515,7 +552,7 @@ void Empresa::adicionarFuncionario()
     float salario;
     bool datavalida, cepvalido;
     
-    std::cout << "Insira o código do funcionario:" << std::endl;
+    std::cout << "Insira o código do funcionário:" << std::endl;
     std::cin >> codigo;
     std::cin.ignore();
     
@@ -527,7 +564,7 @@ void Empresa::adicionarFuncionario()
         }
     }
     
-    std::cout << "Insira o nome do funcionario:" << std::endl;
+    std::cout << "Insira o nome do funcionário:" << std::endl;
     std::getline(std::cin, nome);
 
     std::cout << "Insira o CEP:" << std::endl;
@@ -569,7 +606,7 @@ void Empresa::adicionarFuncionario()
             throw 6; // erro data invalida
         }
 
-    std::cout << "Insira a designacao do funcionario\n[1] Operador\n[2] Gerente\n[3] Diretor\n[4] Presidente\n" << std::endl;
+    std::cout << "Insira a designacao do funcionário\n[1] Operador\n[2] Gerente\n[3] Diretor\n[4] Presidente\n" << std::endl;
     std::cin >> tipo;
     if(tipo>4 || tipo<1)
     {
@@ -628,7 +665,7 @@ void Empresa::aumentaTodosSalarios(){
     for(int i = 0; i < funcionarios.size(); i++){
         funcionarios[i]->aumentoSalarial();
     }
-    std::cout << "Salarios aumentados com sucesso!\n";
+    std::cout << "Salários aumentados com sucesso!\n";
 }
 
 int Empresa::getIntAleatorio(int maximo){
@@ -656,10 +693,20 @@ void Empresa::setDiasEHorasAleatorios(int mes, int indice)
 
     funcionarios[indice]->setDiasTrabalhadosMes(getIntAleatorio(maxDias), mes);
 
+     //se o funcionario foi cadastrado no mes que esta pedindo a folha salarial, a quantidade de dias trabalhado n poderá exceder o maximo de dias - o dia de entrada
+    if(funcionarios[indice]->getData().getAno() == ANOATUAL && funcionarios[indice]->getData().getMes() == mes){
+        while(1){
+           if(funcionarios[indice]->getFolhaDoMes(mes).getDiasTrabalhados() <= (maxDias - funcionarios[indice]->getData().getDia())){
+            break;
+           }else{
+            funcionarios[indice]->setDiasTrabalhadosMes(getIntAleatorio(maxDias), mes);
+           }
+        }
+    }
+
     maxHoras = funcionarios[indice]->getFolhaDoMes(mes).getDiasTrabalhados() * 4;
     
     funcionarios[indice]->setHorasExtrasMes((getIntAleatorio(maxHoras)), mes);
-
 }
 
 void Empresa::buscarFuncionario()
@@ -912,7 +959,7 @@ void Empresa::buscarFuncionario()
 }
 void Empresa::salvarFuncionario(){
     std::fstream fs;
-    fs.open("ListaFuncionarios.txt", std::fstream::out);
+    fs.open("Funcionarios/ListaFuncionarios.txt", std::fstream::out);
     if(!fs.is_open()){
         std::cout << "Erro ao abrir arquivo para escrita\n";
         return;
@@ -953,7 +1000,7 @@ void Empresa::lerFuncionario(){
     std::fstream fs;
     //essa primeira parte vai ler o arquivo por completo e contar quantos funcionarios tem nele
     {
-        fs.open("ListaFuncionarios.txt", std::fstream::in);
+        fs.open("Funcionarios/ListaFuncionarios.txt", std::fstream::in);
         if(!fs.is_open()){
             std::cout << "Erro ao abrir arquivo para leitura\n";
         }
@@ -971,7 +1018,7 @@ void Empresa::lerFuncionario(){
     }
     //essa segunda parte vai ler o arquivo ja sabendo quantos funcionarios tem e parar exatamente onde deve
     {
-        fs.open("ListaFuncionarios.txt", std::fstream::in);
+        fs.open("Funcionarios/ListaFuncionarios.txt", std::fstream::in);
         if(!fs.is_open()){
             std::cout << "Erro ao abrir arquivo para leitura\n";
         }
@@ -980,7 +1027,7 @@ void Empresa::lerFuncionario(){
             if(quantLeu == quantTem){
                 break;
             }
-            std::cout << "Lendo lista de funcionarios, " << i+1 << " funcionario(s) registrado(s)\n";
+            std::cout << "Lendo lista de funcionários, " << i+1 << " funcionário(s) registrado(s)\n";
             i++;
             std::string linha;
             long codigo;

@@ -1,0 +1,49 @@
+-----
+1
+Chika Fujiwara
+64048340
+1000
+(83)98888-8888
+6
+3
+2019
+1
+100
+-----
+2
+Yu Ishigami
+58037415
+2000
+(83)97777-7777
+5
+2
+2019
+2
+200
+João Pessoa
+-----
+3
+Shinomuya Kaguya
+58055000
+3000
+(83)96666-6666
+4
+1
+2019
+3
+1000
+Paraíba
+Ciências da Computação
+-----
+4
+Miyuki Shirogane
+64053360
+4000
+(83)95555-5555
+3
+12
+2018
+4
+2000
+Engenharia da Computação
+Sistemas Embarcados

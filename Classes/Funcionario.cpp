@@ -1,4 +1,5 @@
 #include "Funcionario.h"
+#include <iomanip>
 #include <iostream>
 
 Funcionario::Funcionario(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, int designacao, float salarioDiario)
@@ -133,11 +134,14 @@ void Funcionario::imprimirFolhaMes(int mes)
 {
     std::cout << std::endl;
     std::cout << "Funcionario: " << nome << std::endl;
-    std::cout << "Salario Bruto: R$ " << folhaDoMes[mes-1].getSalarioMesBruto() << std::endl;
-    std::cout << "Desconto da previdencia social: R$ " << folhaDoMes[mes-1].getDescontoPrevidencia() << std::endl;
-    std::cout << "Desconto do Imposto de renda: R$ " << folhaDoMes[mes-1].getDescontoImpostoRend() << std::endl;
-    std::cout << "Total de Descontos: R$ " << folhaDoMes[mes-1].getDescontoPrevidencia() + folhaDoMes[mes-1].getDescontoImpostoRend() << std::endl;
-    std::cout << "Salario Liquido: R$ " << folhaDoMes[mes-1].getSalarioMesLiquido() << std::endl;
+    std::cout << std::fixed;
+    std::cout << "Salario Bruto: R$ " << std::setprecision(2) << folhaDoMes[mes-1].getSalarioMesBruto() << std::endl;
+    std::cout << "Desconto da previdencia social: R$ " << std::setprecision(2) << folhaDoMes[mes-1].getDescontoPrevidencia() << std::endl;
+    std::cout << "Desconto do Imposto de renda: R$ " << std::setprecision(2) << folhaDoMes[mes-1].getDescontoImpostoRend() << std::endl;
+    std::cout << "Total de Descontos: R$ " << std::setprecision(2) << folhaDoMes[mes-1].getDescontoPrevidencia() + folhaDoMes[mes-1].getDescontoImpostoRend() << std::endl;
+    std::cout << "Salario Liquido: R$ " << std::setprecision(2) << folhaDoMes[mes-1].getSalarioMesLiquido() << std::endl;
+    std::cout << "Dias trabalhados no mês: " << folhaDoMes[mes-1].getDiasTrabalhados() << std::endl;
+    std::cout << "Horas extras trabalhadas no mês: " << std::setprecision(0) << folhaDoMes[mes-1].getHorasExtras() << std::endl;
     std::cout << std::endl;
 }
 
@@ -181,11 +185,12 @@ float Funcionario::getPrevidenciaAno()
 void Funcionario::imprimirFolhaAnual(){
     std::cout << std::endl;
     std::cout << "Funcionario: " << nome << std::endl;
-    std::cout << "Salario Anual Bruto: R$ " << getSalarioAno() << std::endl;
-    std::cout << "Desconto anual da previdencia social: R$ " << getPrevidenciaAno() << std::endl;
-    std::cout << "Desconto anual do Imposto de renda: R$ " << getImpostoRendAno() << std::endl;
-    std::cout << "Total de Descontos: R$ " << getPrevidenciaAno() + getImpostoRendAno() << std::endl;
-    std::cout << "Salario Anual Liquido: R$ " << getSalarioAno() - getPrevidenciaAno() - getImpostoRendAno() << std::endl;
+    std::cout << std::fixed;
+    std::cout << "Salario Anual Bruto: R$ " << std::setprecision(2) << getSalarioAno() << std::endl;
+    std::cout << "Desconto anual da previdencia social: R$ " << std::setprecision(2) << getPrevidenciaAno() << std::endl;
+    std::cout << "Desconto anual do Imposto de renda: R$ " << std::setprecision(2) << getImpostoRendAno() << std::endl;
+    std::cout << "Total de Descontos: R$ " << std::setprecision(2) << getPrevidenciaAno() + getImpostoRendAno() << std::endl;
+    std::cout << "Salario Anual Liquido: R$ " << std::setprecision(2) << getSalarioAno() - getPrevidenciaAno() - getImpostoRendAno() << std::endl;
     std::cout << std::endl;
 }
 

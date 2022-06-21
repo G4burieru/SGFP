@@ -17,9 +17,9 @@ void Endereco::parseCEP(){
     int i = 0; //um indice para indicar qual a linha do arquivo que o programa está lendo
 
     url = "https://viacep.com.br/ws/" + CEP + "/json/"; //atribui a variavel url o url correspondente ao CEP digitado
-    system(("wget -q -O cep.txt " + url).c_str()); //converte url para um vetor de char e faz o wget dela
+    system(("wget -q -O CEP/cep.txt " + url).c_str()); //converte url para um vetor de char e faz o wget dela
 
-    fs.open("CEP.txt", std::fstream::in); //cria um arquivo CEP.txt de leitura
+    fs.open("CEP/cep.txt", std::fstream::in); //cria um arquivo cep.txt de leitura na pasta CEP
     if(fs.is_open()){ //se o arquivo estiver aberto,
         while(!fs.eof()){ //será verificado se ele ainda não chegou no final
                 getline(fs, json); //lerá uma linha por vez do arquivo json

@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Empresa.h"
 #include <Windows.h>
+#include "Empresa.h"
 #include "Menu.h"
 
 using namespace std;
@@ -70,17 +70,17 @@ int Menu::abrirmenu()
     emp.lerFolha();
     system("CLS");
 
-    std::cout << "Bem vindo ao programa, essa é uma versão teste ^-^\n";
+    std::cout << "Bem vindo ao programa!\n";
     Sleep(2000);
 
     while(1)
     {
         system("CLS");
         cout << "O que deseja fazer agora?\n\n"
-        "[01] Adicionar Funcionario\n[02] Excluir funcionario\n[03] Editar funcionario\n[04] Exibir lista de funcionarios\n"
-        "[05] Exibir lista de um tipo específica de funcionario\n[06] Calcular folha salarial\n[07] Exibir folha da empresa\n"
-        "[08] Exibir folha de um funcionario expecifico\n[09] Aumentar todos os salarios, eba\n"
-        "[10] Buscar Funcionario\n[11] Sair\n";
+        "[01] Adicionar funcionário\n[02] Excluir funcionário\n[03] Editar funcionário\n[04] Exibir lista de funcionários\n"
+        "[05] Exibir lista de um tipo específico de funcionário\n[06] Calcular folha salarial\n[07] Exibir folha da empresa\n"
+        "[08] Exibir folha de um funcionário específico\n[09] Aumentar todos os salários\n"
+        "[10] Buscar funcionário\n[11] Sair\n";
 
         cin >> fazer;
 
@@ -175,6 +175,7 @@ int Menu::abrirmenu()
         case 9:
             system("CLS");
             emp.aumentaTodosSalarios();
+            Sleep(1500);
             break;
 
         case 10:
@@ -191,7 +192,6 @@ int Menu::abrirmenu()
             break;
 
         case 11:
-            emp.salvarFuncionario();
             return 0;
 
         default:
