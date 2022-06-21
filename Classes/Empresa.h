@@ -1,8 +1,6 @@
 #ifndef EMPRESA_H
 #define EMPRESA_H
 
-using namespace std;
-
 #include "Funcionario.h"
 #include <iostream>
 #include <vector>
@@ -23,9 +21,13 @@ public:
     void adicionarFuncionario();
     void aumentaTodosSalarios();
     void buscarFuncionario();
-    void salvarArquivo();
-    void lerArquivo();
-    
+    std::string padronizaTelefone(long long telefonlong);
+    bool validaData(int dia, int mes, int ano);
+    void salvarFuncionario();
+    void lerFuncionario();
+
+    void salvarFolha(int j);
+    void lerFolha();
 
 protected:
     void setDiasEHorasAleatorios(int mes, int indice);

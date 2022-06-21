@@ -1,8 +1,6 @@
 #ifndef FOLHASALARIAL_H
 #define FOLHASALARIAL_H
 
-#pragma once
-
 class FolhaSalarial
 {
 public:
@@ -21,6 +19,11 @@ public:
 
     void setDiasTrabalhados(int dias);
     void setHorasExtras(float horas);
+    void setSalarioMesBruto(float salarioB);
+    void setSalarioMesLiquido(float salarioL);
+    void setDescontoPrevidencia(float descontoP);
+    void setDescontoImpostoRend(float descontoI);
+
     float getHorasExtras();
     int getDiasTrabalhados();
 
@@ -29,5 +32,6 @@ private:
     float horasExtras, salarioMesBruto, salarioMesLiquido, descontoPrevidencia, descontoImpostoRend;
 
 };
+
 
 #endif

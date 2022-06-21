@@ -12,6 +12,14 @@ public:
 
     void aumentoSalarial();
 
+
+    std::string getAreaSupervisao();
+     void setAreaSupervisao(std::string areaSupervisao);
+     std::string getAreaFormacao();
+     void setAreaFormacao(std::string areaFormacao);
+     std::string getFormacaoMaxima();
+     void setFormacaoMaxima(std::string formacaoMaxima);
+
 private:
 
 };

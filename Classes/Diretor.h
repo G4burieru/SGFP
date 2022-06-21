@@ -7,16 +7,20 @@
 class Diretor : public Funcionario
 {
 public:
-    Diretor(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, float salarioDiario);
+    Diretor(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, float salarioDiario,std::string areaSupervisao, std::string areaFormacao);
     ~Diretor();
 
     void aumentoSalarial();
     
-    std::string getAreasupervisao();
-    std::string getAreaformacao();
+    std::string getAreaSupervisao();
+    std::string getAreaFormacao();
 
-    void setAreasupervisao(std::string areaSupervisao);
-    void setAreaformacao(std::string areaFormacao);
+    void setAreaSupervisao(std::string areaSupervisao);
+    void setAreaFormacao(std::string areaFormacao);
+
+
+    std::string getFormacaoMaxima();
+    void setFormacaoMaxima(std::string formacaoMaxima);
 
 private:
     std::string areaSupervisao;
