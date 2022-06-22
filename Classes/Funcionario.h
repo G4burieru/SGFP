@@ -6,7 +6,7 @@
 #include "Endereco.h"
 #include <iostream>
 
-class Funcionario : public Data
+class Funcionario// : public Data
 {
 public:
     Funcionario(long codigo, std::string nome, Endereco endereco, std::string telefone, Data data, int designacao, float salario);

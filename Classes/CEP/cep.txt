@@ -1,12 +1,12 @@
 {
-  "cep": "64053-360",
-  "logradouro": "Rua Doutor Anerão Walter Coutinho",
+  "cep": "58037-415",
+  "logradouro": "Rua Josemar Rodrigues de Carvalho",
   "complemento": "",
-  "bairro": "Santa Isabel",
-  "localidade": "Teresina",
-  "uf": "PI",
-  "ibge": "2211001",
+  "bairro": "Jardim Oceania",
+  "localidade": "João Pessoa",
+  "uf": "PB",
+  "ibge": "2507507",
   "gia": "",
-  "ddd": "86",
-  "siafi": "1219"
+  "ddd": "83",
+  "siafi": "2051"
 }
